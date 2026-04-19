@@ -4,6 +4,8 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$ROOT_DIR"
 
+DEFAULT_AVD_NAME="cursor_pixel_api_30_atd"
+
 log() {
   printf '[run_android_stable] %s\n' "$*"
 }
@@ -58,7 +60,7 @@ stop_avd_processes() {
 start_emulator_process() {
   local avd_name="$1"
   log "Starting emulator: $avd_name"
-  local emulator_args=(-avd "$avd_name" -no-boot-anim -no-snapshot -no-audio -netdelay none -netspeed full)
+  local emulator_args=(-avd "$avd_name" -no-boot-anim -no-snapshot -wipe-data -no-audio -camera-back none -camera-front none -netdelay none -netspeed full)
   if [[ -e /dev/kvm && -w /dev/kvm ]]; then
     emulator_args+=(-accel auto)
   else
@@ -126,6 +128,37 @@ cleanup_stale_avd_locks() {
 
 first_connected_device() {
   adb devices | awk 'NR>1 && $2=="device" {print $1; exit}'
+}
+
+adb_prop() {
+  local device_id="$1"
+  local prop_name="$2"
+  adb -s "$device_id" shell getprop "$prop_name" 2>/dev/null | tr -d '\r[:space:]'
+}
+
+is_device_boot_completed() {
+  local device_id="$1"
+  local sys_boot dev_boot bootanim bootanim_exit
+  sys_boot="$(adb_prop "$device_id" "sys.boot_completed")"
+  dev_boot="$(adb_prop "$device_id" "dev.bootcomplete")"
+  bootanim="$(adb_prop "$device_id" "init.svc.bootanim")"
+  bootanim_exit="$(adb_prop "$device_id" "service.bootanim.exit")"
+
+  if [[ "$sys_boot" == "1" || "$dev_boot" == "1" ]]; then
+    return 0
+  fi
+
+  if [[ "$bootanim" == "stopped" && "$bootanim_exit" == "1" ]]; then
+    return 0
+  fi
+
+  if [[ "$bootanim" == "stopped" ]]; then
+    # Some emulator images leave sys.boot_completed empty; package manager
+    # responsiveness is a practical readiness signal for flutter run.
+    adb -s "$device_id" shell 'cmd package list packages >/dev/null 2>&1' >/dev/null 2>&1 && return 0
+  fi
+
+  return 1
 }
 
 require_cmd() {
@@ -227,7 +260,11 @@ if [[ -z "$running_device" ]]; then
   require_cmd emulator
   avd_name="${ANDROID_AVD_NAME:-}"
   if [[ -z "$avd_name" ]]; then
-    avd_name="$(emulator -list-avds | awk 'NF {print; exit}')"
+    if emulator -list-avds | awk -v avd="$DEFAULT_AVD_NAME" '$0==avd{found=1} END{exit !found}'; then
+      avd_name="$DEFAULT_AVD_NAME"
+    else
+      avd_name="$(emulator -list-avds | awk 'NF {print; exit}')"
+    fi
   fi
   if [[ -z "$avd_name" ]]; then
     log "No AVD found. Create one or set ANDROID_AVD_NAME."
@@ -278,14 +315,14 @@ fi
 if [[ "$started_emulator" == true ]]; then
   log "Waiting for boot completion..."
   for _ in $(seq 1 240); do
-    if [[ "$(adb -s "$device_id" shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')" == "1" ]]; then
+    if is_device_boot_completed "$device_id"; then
       break
     fi
     sleep 1
   done
 fi
 
-if [[ "$(adb -s "$device_id" shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')" != "1" ]]; then
+if ! is_device_boot_completed "$device_id"; then
   log "System boot did not complete in time. Check /tmp/android-emulator.log"
   exit 1
 fi
