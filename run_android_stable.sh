@@ -8,12 +8,67 @@ log() {
   printf '[run_android_stable] %s\n' "$*"
 }
 
-is_avd_process_running() {
+avd_process_pids() {
   local avd_name="$1"
   ps -ef | awk -v avd="$avd_name" '
-    /qemu-system/ && $0 ~ ("-avd " avd "([[:space:]]|$)") { found=1 }
-    END { exit(found ? 0 : 1) }
+    /qemu-system/ && $0 ~ ("-avd " avd "([[:space:]]|$)") { print $2 }
   '
+}
+
+is_avd_process_running() {
+  local avd_name="$1"
+  [[ -n "$(avd_process_pids "$avd_name")" ]]
+}
+
+stop_avd_processes() {
+  local avd_name="$1"
+  local pids
+  pids="$(avd_process_pids "$avd_name" | tr '\n' ' ')"
+  if [[ -z "${pids// }" ]]; then
+    return
+  fi
+
+  log "Stopping stale emulator process(es): $pids"
+  local pid
+  for pid in $pids; do
+    kill "$pid" 2>/dev/null || true
+  done
+
+  for _ in $(seq 1 20); do
+    local any_alive=false
+    for pid in $pids; do
+      if kill -0 "$pid" 2>/dev/null; then
+        any_alive=true
+        break
+      fi
+    done
+    if [[ "$any_alive" == false ]]; then
+      break
+    fi
+    sleep 1
+  done
+
+  for pid in $pids; do
+    if kill -0 "$pid" 2>/dev/null; then
+      kill -9 "$pid" 2>/dev/null || true
+    fi
+  done
+}
+
+start_emulator_process() {
+  local avd_name="$1"
+  log "Starting emulator: $avd_name"
+  local emulator_args=(-avd "$avd_name" -no-boot-anim -no-snapshot -no-audio -netdelay none -netspeed full)
+  if [[ -e /dev/kvm && -w /dev/kvm ]]; then
+    emulator_args+=(-accel auto)
+  else
+    # In no-KVM cloud VMs, headless mode is usually more stable.
+    emulator_args+=(-accel off -gpu swiftshader_indirect -no-window)
+  fi
+  if [[ -z "${DISPLAY:-}" ]]; then
+    emulator_args+=(-no-window)
+  fi
+  nohup emulator "${emulator_args[@]}" >/tmp/android-emulator.log 2>&1 &
 }
 
 cleanup_stale_avd_entries() {
@@ -182,20 +237,23 @@ if [[ -z "$running_device" ]]; then
   cleanup_stale_avd_entries "$avd_name"
   if is_avd_process_running "$avd_name"; then
     log "Emulator process already running for AVD: $avd_name"
+    for _ in $(seq 1 30); do
+      running_device="$(first_connected_device)"
+      if [[ -n "$running_device" ]]; then
+        break
+      fi
+      sleep 1
+    done
+    if [[ -z "$running_device" ]]; then
+      log "Existing emulator process is not reachable by adb. Restarting AVD."
+      stop_avd_processes "$avd_name"
+      cleanup_stale_avd_entries "$avd_name"
+      cleanup_stale_avd_locks "$avd_name"
+      start_emulator_process "$avd_name"
+    fi
   else
     cleanup_stale_avd_locks "$avd_name"
-    log "Starting emulator: $avd_name"
-    emulator_args=(-avd "$avd_name" -no-boot-anim -no-snapshot -no-audio -netdelay none -netspeed full)
-    if [[ -e /dev/kvm && -w /dev/kvm ]]; then
-      emulator_args+=(-accel auto)
-    else
-      # In no-KVM cloud VMs, headless mode is usually more stable.
-      emulator_args+=(-accel off -gpu swiftshader_indirect -no-window)
-    fi
-    if [[ -z "${DISPLAY:-}" ]]; then
-      emulator_args+=(-no-window)
-    fi
-    nohup emulator "${emulator_args[@]}" >/tmp/android-emulator.log 2>&1 &
+    start_emulator_process "$avd_name"
   fi
   started_emulator=true
 fi
