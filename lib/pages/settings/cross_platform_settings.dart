@@ -51,14 +51,14 @@ class _CrossPlatformSettingsState extends State<CrossPlatformSettings> {
 
     var widgets = <Widget>[
       const ListTile(
-        title: Text("General Settings"),
+        title: Text("常规设置"),
         enabled: false,
       ),
       ListTile(
-        title: const Text("Search Engine"),
+        title: const Text("搜索引擎"),
         subtitle: Text(settings.searchEngine.name),
         trailing: DropdownButton<SearchEngineModel>(
-          hint: const Text("Search Engine"),
+          hint: const Text("搜索引擎"),
           onChanged: (value) {
             setState(() {
               if (value != null) {
@@ -77,12 +77,12 @@ class _CrossPlatformSettingsState extends State<CrossPlatformSettings> {
         ),
       ),
       ListTile(
-        title: const Text("Home page"),
+        title: const Text("主页"),
         subtitle: Text(settings.homePageEnabled
             ? (settings.customUrlHomePage.isEmpty
-                ? "ON"
+                ? "开"
                 : settings.customUrlHomePage)
-            : "OFF"),
+            : "关"),
         onTap: () {
           _customHomePageController.text = settings.customUrlHomePage;
 
@@ -97,7 +97,7 @@ class _CrossPlatformSettingsState extends State<CrossPlatformSettings> {
                     StatefulBuilder(
                       builder: (context, setState) {
                         return SwitchListTile(
-                          title: Text(settings.homePageEnabled ? "ON" : "OFF"),
+                          title: Text(settings.homePageEnabled ? "开" : "关"),
                           value: settings.homePageEnabled,
                           onChanged: (value) {
                             setState(() {
@@ -125,7 +125,7 @@ class _CrossPlatformSettingsState extends State<CrossPlatformSettings> {
                                 },
                                 keyboardType: TextInputType.url,
                                 decoration: const InputDecoration(
-                                    hintText: 'Custom URL Home Page'),
+                                    hintText: '自定义主页网址'),
                                 controller: _customHomePageController,
                               ),
                             )
@@ -149,7 +149,7 @@ class _CrossPlatformSettingsState extends State<CrossPlatformSettings> {
           }
 
           return ListTile(
-            title: const Text("Default User Agent"),
+            title: const Text("默认 User Agent"),
             subtitle: Text(deafultUserAgent),
             onLongPress: () {
               Clipboard.setData(ClipboardData(text: deafultUserAgent));
@@ -158,9 +158,9 @@ class _CrossPlatformSettingsState extends State<CrossPlatformSettings> {
         },
       ),
       SwitchListTile(
-        title: const Text("Debugging Enabled"),
+        title: const Text("启用调试"),
         subtitle: const Text(
-            "Enables debugging of web contents loaded into any WebViews of this application. On iOS < 16.4, the debugging mode is always enabled."),
+            "允许调试本应用中任意 WebView 加载的网页内容。在 iOS 16.4 以下版本中，调试模式始终开启。"),
         value: settings.debuggingEnabled,
         onChanged: (value) {
           setState(() {
@@ -187,10 +187,10 @@ class _CrossPlatformSettingsState extends State<CrossPlatformSettings> {
           if (snapshot.hasData) {
             PackageInfo packageInfo = snapshot.data as PackageInfo;
             packageDescription =
-                "Package Name: ${packageInfo.packageName}\nVersion: ${packageInfo.version}\nBuild Number: ${packageInfo.buildNumber}";
+                "包名：${packageInfo.packageName}\n版本：${packageInfo.version}\n构建号：${packageInfo.buildNumber}";
           }
           return ListTile(
-            title: const Text("Flutter Browser Package Info"),
+            title: const Text("应用包信息"),
             subtitle: Text(packageDescription),
             onLongPress: () {
               Clipboard.setData(ClipboardData(text: packageDescription));
@@ -206,7 +206,7 @@ class _CrossPlatformSettingsState extends State<CrossPlatformSettings> {
           child: const CircleAvatar(
               backgroundImage: AssetImage("assets/icon/icon.png")),
         ),
-        title: const Text("Flutter InAppWebView Project"),
+        title: const Text("Flutter InAppWebView 项目"),
         subtitle: const Text(
             "https://github.com/pichillilorenzo/flutter_inappwebview"),
         trailing: const Icon(Icons.arrow_forward),
@@ -246,7 +246,7 @@ class _CrossPlatformSettingsState extends State<CrossPlatformSettings> {
                   "${packageInfo.packageName ?? ""} - ${packageInfo.versionName ?? ""}";
             }
             return ListTile(
-              title: const Text("WebView Package Info"),
+              title: const Text("WebView 组件信息"),
               subtitle: Text(packageDescription),
               onLongPress: () {
                 Clipboard.setData(ClipboardData(text: packageDescription));
@@ -267,13 +267,13 @@ class _CrossPlatformSettingsState extends State<CrossPlatformSettings> {
 
     var widgets = <Widget>[
       const ListTile(
-        title: Text("Current WebView Settings"),
+        title: Text("当前 WebView 设置"),
         enabled: false,
       ),
       SwitchListTile(
-        title: const Text("JavaScript Enabled"),
+        title: const Text("启用 JavaScript"),
         subtitle:
-            const Text("Sets whether the WebView should enable JavaScript."),
+            const Text("设置 WebView 是否启用 JavaScript。"),
         value: currentWebViewModel.settings?.javaScriptEnabled ?? true,
         onChanged: (value) async {
           currentWebViewModel.settings?.javaScriptEnabled = value;
@@ -285,9 +285,9 @@ class _CrossPlatformSettingsState extends State<CrossPlatformSettings> {
         },
       ),
       SwitchListTile(
-        title: const Text("Cache Enabled"),
+        title: const Text("启用缓存"),
         subtitle:
-            const Text("Sets whether the WebView should use browser caching."),
+            const Text("设置 WebView 是否使用浏览器缓存。"),
         value: currentWebViewModel.settings?.cacheEnabled ?? true,
         onChanged: (value) async {
           currentWebViewModel.settings?.cacheEnabled = value;
@@ -301,11 +301,11 @@ class _CrossPlatformSettingsState extends State<CrossPlatformSettings> {
       StatefulBuilder(
         builder: (context, setState) {
           return ListTile(
-            title: const Text("Custom User Agent"),
+            title: const Text("自定义 User Agent"),
             subtitle: Text(
                 currentWebViewModel.settings?.userAgent?.isNotEmpty ?? false
                     ? currentWebViewModel.settings!.userAgent!
-                    : "Set a custom user agent ..."),
+                    : "设置自定义 User Agent…"),
             onTap: () {
               _customUserAgentController.text =
                   currentWebViewModel.settings?.userAgent ?? "";
@@ -339,7 +339,7 @@ class _CrossPlatformSettingsState extends State<CrossPlatformSettings> {
                                     });
                                   },
                                   decoration: const InputDecoration(
-                                      hintText: 'Custom User Agent'),
+                                      hintText: '自定义 User Agent'),
                                   controller: _customUserAgentController,
                                   keyboardType: TextInputType.multiline,
                                   textInputAction: TextInputAction.go,
@@ -359,9 +359,9 @@ class _CrossPlatformSettingsState extends State<CrossPlatformSettings> {
         },
       ),
       SwitchListTile(
-        title: const Text("Support Zoom"),
+        title: const Text("支持缩放"),
         subtitle: const Text(
-            "Sets whether the WebView should not support zooming using its on-screen zoom controls and gestures."),
+            "设置 WebView 是否支持通过屏幕缩放控件与手势进行缩放。"),
         value: currentWebViewModel.settings?.supportZoom ?? true,
         onChanged: (value) async {
           currentWebViewModel.settings?.supportZoom = value;
@@ -373,9 +373,9 @@ class _CrossPlatformSettingsState extends State<CrossPlatformSettings> {
         },
       ),
       SwitchListTile(
-        title: const Text("Media Playback Requires User Gesture"),
+        title: const Text("媒体播放需用户手势"),
         subtitle: const Text(
-            "Sets whether the WebView should prevent HTML5 audio or video from autoplaying."),
+            "设置 WebView 是否阻止 HTML5 音频或视频自动播放。"),
         value: currentWebViewModel.settings?.mediaPlaybackRequiresUserGesture ??
             true,
         onChanged: (value) async {
@@ -389,9 +389,9 @@ class _CrossPlatformSettingsState extends State<CrossPlatformSettings> {
         },
       ),
       SwitchListTile(
-        title: const Text("Vertical ScrollBar Enabled"),
+        title: const Text("显示纵向滚动条"),
         subtitle: const Text(
-            "Sets whether the vertical scrollbar should be drawn or not."),
+            "设置是否绘制纵向滚动条。"),
         value: currentWebViewModel.settings?.verticalScrollBarEnabled ?? true,
         onChanged: (value) async {
           currentWebViewModel.settings?.verticalScrollBarEnabled = value;
@@ -403,9 +403,9 @@ class _CrossPlatformSettingsState extends State<CrossPlatformSettings> {
         },
       ),
       SwitchListTile(
-        title: const Text("Horizontal ScrollBar Enabled"),
+        title: const Text("显示横向滚动条"),
         subtitle: const Text(
-            "Sets whether the horizontal scrollbar should be drawn or not."),
+            "设置是否绘制横向滚动条。"),
         value: currentWebViewModel.settings?.horizontalScrollBarEnabled ?? true,
         onChanged: (value) async {
           currentWebViewModel.settings?.horizontalScrollBarEnabled = value;
@@ -417,9 +417,9 @@ class _CrossPlatformSettingsState extends State<CrossPlatformSettings> {
         },
       ),
       SwitchListTile(
-        title: const Text("Disable Vertical Scroll"),
+        title: const Text("禁用纵向滚动"),
         subtitle: const Text(
-            "Sets whether vertical scroll should be enabled or not."),
+            "设置是否允许纵向滚动。"),
         value: currentWebViewModel.settings?.disableVerticalScroll ?? false,
         onChanged: (value) async {
           currentWebViewModel.settings?.disableVerticalScroll = value;
@@ -431,9 +431,9 @@ class _CrossPlatformSettingsState extends State<CrossPlatformSettings> {
         },
       ),
       SwitchListTile(
-        title: const Text("Disable Horizontal Scroll"),
+        title: const Text("禁用横向滚动"),
         subtitle: const Text(
-            "Sets whether horizontal scroll should be enabled or not."),
+            "设置是否允许横向滚动。"),
         value: currentWebViewModel.settings?.disableHorizontalScroll ?? false,
         onChanged: (value) async {
           currentWebViewModel.settings?.disableHorizontalScroll = value;
@@ -445,9 +445,9 @@ class _CrossPlatformSettingsState extends State<CrossPlatformSettings> {
         },
       ),
       SwitchListTile(
-        title: const Text("Disable Context Menu"),
+        title: const Text("禁用上下文菜单"),
         subtitle:
-            const Text("Sets whether context menu should be enabled or not."),
+            const Text("设置是否启用上下文菜单。"),
         value: currentWebViewModel.settings?.disableContextMenu ?? false,
         onChanged: (value) async {
           currentWebViewModel.settings?.disableContextMenu = value;
@@ -459,8 +459,8 @@ class _CrossPlatformSettingsState extends State<CrossPlatformSettings> {
         },
       ),
       ListTile(
-        title: const Text("Minimum Font Size"),
-        subtitle: const Text("Sets the minimum font size."),
+        title: const Text("最小字号"),
+        subtitle: const Text("设置最小字体大小。"),
         trailing: SizedBox(
           width: 50.0,
           child: TextFormField(
@@ -481,9 +481,9 @@ class _CrossPlatformSettingsState extends State<CrossPlatformSettings> {
         ),
       ),
       SwitchListTile(
-        title: const Text("Allow File Access From File URLs"),
+        title: const Text("允许 file URL 访问其他 file URL"),
         subtitle: const Text(
-            "Sets whether JavaScript running in the context of a file scheme URL should be allowed to access content from other file scheme URLs."),
+            "设置在 file 协议页面中运行的 JavaScript 是否可访问其他 file 协议资源。"),
         value:
             currentWebViewModel.settings?.allowFileAccessFromFileURLs ?? false,
         onChanged: (value) async {
@@ -496,9 +496,9 @@ class _CrossPlatformSettingsState extends State<CrossPlatformSettings> {
         },
       ),
       SwitchListTile(
-        title: const Text("Allow Universal Access From File URLs"),
+        title: const Text("允许 file URL 跨源访问"),
         subtitle: const Text(
-            "Sets whether JavaScript running in the context of a file scheme URL should be allowed to access content from any origin."),
+            "设置在 file 协议页面中运行的 JavaScript 是否可访问任意来源的内容。"),
         value: currentWebViewModel.settings?.allowUniversalAccessFromFileURLs ??
             false,
         onChanged: (value) async {

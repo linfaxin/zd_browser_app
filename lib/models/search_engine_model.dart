@@ -41,21 +41,21 @@ class SearchEngineModel {
 
 // ignore: constant_identifier_names
 const GoogleSearchEngine = SearchEngineModel(
-    name: "Google",
+    name: "谷歌",
     url: "https://www.google.com/",
     searchUrl: "https://www.google.com/search?q=",
     assetIcon: "assets/images/google_logo.png");
 
 // ignore: constant_identifier_names
 const YahooSearchEngine = SearchEngineModel(
-    name: "Yahoo",
+    name: "雅虎",
     url: "https://yahoo.com/",
     searchUrl: "https://search.yahoo.com/search?p=",
     assetIcon: "assets/images/yahoo_logo.png");
 
 // ignore: constant_identifier_names
 const BingSearchEngine = SearchEngineModel(
-    name: "Bing",
+    name: "必应",
     url: "https://www.bing.com/",
     searchUrl: "https://www.bing.com/search?q=",
     assetIcon: "assets/images/bing_logo.png");

@@ -174,7 +174,7 @@ class _StorageManagerState extends State<StorageManager> {
                 FocusScope.of(context).unfocus();
               },
               title: const Text(
-                "Cookies",
+                "Cookie",
                 style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
               ),
               children: <Widget>[
@@ -185,21 +185,21 @@ class _StorageManagerState extends State<StorageManager> {
                     columns: const <DataColumn>[
                       DataColumn(
                         label: Text(
-                          "Name",
+                          "名称",
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 16.0),
                         ),
                       ),
                       DataColumn(
                         label: Text(
-                          "Value",
+                          "值",
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 16.0),
                         ),
                       ),
                       DataColumn(
                         label: Text(
-                          "Delete",
+                          "删除",
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 16.0),
                         ),
@@ -222,10 +222,10 @@ class _StorageManagerState extends State<StorageManager> {
                                 child: TextFormField(
                                   controller: _newCookieNameController,
                                   decoration: const InputDecoration(
-                                      labelText: "Cookie Name"),
+                                      labelText: "Cookie 名称"),
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
-                                      return 'Please enter some text';
+                                      return '请输入内容';
                                     }
                                     return null;
                                   },
@@ -236,10 +236,10 @@ class _StorageManagerState extends State<StorageManager> {
                               child: TextFormField(
                                 controller: _newCookieValueController,
                                 decoration: const InputDecoration(
-                                    labelText: "Cookie Value"),
+                                    labelText: "Cookie 值"),
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return 'Please enter some text';
+                                    return '请输入内容';
                                   }
                                   return null;
                                 },
@@ -255,7 +255,7 @@ class _StorageManagerState extends State<StorageManager> {
                                 child: TextFormField(
                                   controller: _newCookieDomainController,
                                   decoration: const InputDecoration(
-                                      labelText: "Cookie Domain"),
+                                      labelText: "Cookie 域名"),
                                 ),
                               ),
                             ),
@@ -263,10 +263,10 @@ class _StorageManagerState extends State<StorageManager> {
                               child: TextFormField(
                                 controller: _newCookiePathController,
                                 decoration: const InputDecoration(
-                                    labelText: "Cookie Path"),
+                                    labelText: "Cookie 路径"),
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return 'Please enter some text';
+                                    return '请输入内容';
                                   }
                                   return null;
                                 },
@@ -281,12 +281,12 @@ class _StorageManagerState extends State<StorageManager> {
                                 children: <Widget>[
                                   Expanded(
                                     child: ListTile(
-                                      title: const Text("Expires in:"),
+                                      title: const Text("过期时间："),
                                       subtitle: Text(
                                           _newCookieExpiresDate != null
                                               ? _newCookieExpiresDate!
                                                   .toIso8601String()
-                                              : "Select a date ..."),
+                                              : "选择日期…"),
                                       onTap: () async {
                                         FocusScope.of(context).unfocus();
                                         _newCookieExpiresDate = await showDatePicker(
@@ -314,7 +314,7 @@ class _StorageManagerState extends State<StorageManager> {
                             ),
                             Expanded(
                                 child: CheckboxListTile(
-                              title: const Text("Is Secure?"),
+                              title: const Text("是否安全？"),
                               value: _newCookieIsSecure,
                               onChanged: (newValue) {
                                 setState(() {
@@ -327,7 +327,7 @@ class _StorageManagerState extends State<StorageManager> {
                         SizedBox(
                             width: MediaQuery.of(context).size.width,
                             child: TextButton(
-                              child: const Text("Add Cookie"),
+                              child: const Text("添加 Cookie"),
                               onPressed: () async {
                                 if (_newCookieFormKey.currentState != null &&
                                     _newCookieFormKey.currentState!
@@ -360,7 +360,7 @@ class _StorageManagerState extends State<StorageManager> {
                   children: <Widget>[
                     Expanded(
                       child: TextButton(
-                        child: const Text("Clear cookies"),
+                        child: const Text("清除本站 Cookie"),
                         onPressed: () async {
                           await _cookieManager.deleteCookies(url: url);
                           setState(() {});
@@ -369,7 +369,7 @@ class _StorageManagerState extends State<StorageManager> {
                     ),
                     Expanded(
                       child: TextButton(
-                        child: const Text("Clear all"),
+                        child: const Text("全部清除"),
                         onPressed: () async {
                           await _cookieManager.deleteAllCookies();
                           setState(() {});
@@ -452,7 +452,7 @@ class _StorageManagerState extends State<StorageManager> {
                 FocusScope.of(context).unfocus();
               },
               title: const Text(
-                "Local Storage",
+                "本地存储",
                 style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
               ),
               children: <Widget>[
@@ -463,21 +463,21 @@ class _StorageManagerState extends State<StorageManager> {
                     columns: const <DataColumn>[
                       DataColumn(
                         label: Text(
-                          "Key",
+                          "键",
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 16.0),
                         ),
                       ),
                       DataColumn(
                         label: Text(
-                          "Value",
+                          "值",
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 16.0),
                         ),
                       ),
                       DataColumn(
                         label: Text(
-                          "Delete",
+                          "删除",
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 16.0),
                         ),
@@ -490,8 +490,8 @@ class _StorageManagerState extends State<StorageManager> {
                   formKey: _newLocalStorageItemFormKey,
                   nameController: _newLocalStorageKeyController,
                   valueController: _newLocalStorageValueController,
-                  labelName: "Local Item Key",
-                  labelValue: "Local Item Value",
+                  labelName: "本地存储键",
+                  labelValue: "本地存储值",
                   onAdded: (name, value) {
                     webViewController?.webStorage.localStorage
                         .setItem(key: name, value: value);
@@ -500,7 +500,7 @@ class _StorageManagerState extends State<StorageManager> {
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
                   child: TextButton(
-                    child: const Text("Clear items"),
+                    child: const Text("清除条目"),
                     onPressed: () async {
                       await webViewController?.webStorage.localStorage.clear();
                       setState(() {});
@@ -583,7 +583,7 @@ class _StorageManagerState extends State<StorageManager> {
                 FocusScope.of(context).unfocus();
               },
               title: const Text(
-                "Session Storage",
+                "会话存储",
                 style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
               ),
               children: <Widget>[
@@ -594,21 +594,21 @@ class _StorageManagerState extends State<StorageManager> {
                     columns: const <DataColumn>[
                       DataColumn(
                         label: Text(
-                          "Key",
+                          "键",
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 16.0),
                         ),
                       ),
                       DataColumn(
                         label: Text(
-                          "Value",
+                          "值",
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 16.0),
                         ),
                       ),
                       DataColumn(
                         label: Text(
-                          "Delete",
+                          "删除",
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 16.0),
                         ),
@@ -621,8 +621,8 @@ class _StorageManagerState extends State<StorageManager> {
                   formKey: _newSessionStorageItemFormKey,
                   nameController: _newSessionStorageKeyController,
                   valueController: _newSessionStorageValueController,
-                  labelName: "Session Item Key",
-                  labelValue: "Session Item Value",
+                  labelName: "会话存储键",
+                  labelValue: "会话存储值",
                   onAdded: (name, value) async {
                     await webViewController?.webStorage.sessionStorage
                         .setItem(key: name, value: value);
@@ -632,7 +632,7 @@ class _StorageManagerState extends State<StorageManager> {
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
                   child: TextButton(
-                    child: const Text("Clear items"),
+                    child: const Text("清除条目"),
                     onPressed: () async {
                       await webViewController?.webStorage.sessionStorage
                           .clear();
@@ -651,7 +651,7 @@ class _StorageManagerState extends State<StorageManager> {
   Widget _buildAndroidWebStorageExpansionTile(BoxConstraints constraints) {
     var children = <Widget>[
       ListTile(
-        title: const Text("Quota"),
+        title: const Text("配额"),
         subtitle: Selector<WebViewModel, Uri>(
           selector: (context, webViewModel) => webViewModel.url!,
           builder: (context, url, child) {
@@ -669,7 +669,7 @@ class _StorageManagerState extends State<StorageManager> {
           selector: (context, webViewModel) => webViewModel.url!,
           builder: (context, url, child) {
             return ListTile(
-              title: const Text("Usage"),
+              title: const Text("用量"),
               subtitle: FutureBuilder(
                 future: _webStorageManager
                     ?.getUsageForOrigin(origin: url.origin),
@@ -694,7 +694,7 @@ class _StorageManagerState extends State<StorageManager> {
         FocusScope.of(context).unfocus();
       },
       title: const Text(
-        "Web Storage Android",
+        "Android Web 存储",
         style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
       ),
       children: children,
@@ -763,7 +763,7 @@ class _StorageManagerState extends State<StorageManager> {
             FocusScope.of(context).unfocus();
           },
           title: const Text(
-            "Web Storage iOS",
+            "iOS Web 存储",
             style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
           ),
           children: <Widget>[
@@ -774,21 +774,21 @@ class _StorageManagerState extends State<StorageManager> {
                 columns: const <DataColumn>[
                   DataColumn(
                     label: Text(
-                      "Display Name",
+                      "显示名称",
                       style: TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 16.0),
                     ),
                   ),
                   DataColumn(
                     label: Text(
-                      "Data Types",
+                      "数据类型",
                       style: TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 16.0),
                     ),
                   ),
-                  DataColumn(
+                      DataColumn(
                     label: Text(
-                      "Delete",
+                      "删除",
                       style: TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 16.0),
                     ),
@@ -800,7 +800,7 @@ class _StorageManagerState extends State<StorageManager> {
             SizedBox(
                 width: MediaQuery.of(context).size.width,
                 child: TextButton(
-                  child: const Text("Clear all"),
+                  child: const Text("全部清除"),
                   onPressed: () async {
                     await _webStorageManager?.removeDataModifiedSince(
                         dataTypes: WebsiteDataType.ALL,
@@ -882,14 +882,14 @@ class _StorageManagerState extends State<StorageManager> {
           dataTables.add(Column(
             children: <Widget>[
               const Text(
-                "Protection Space",
+                "保护空间",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
               ),
               const SizedBox(
                 height: 10.0,
               ),
               Text(
-                  "Protocol: ${protectionSpace?.protocol ?? ""}, Host: ${protectionSpace?.host ?? ""}, Port: ${protectionSpace?.port != null && protectionSpace!.port! > 0 ? protectionSpace.port.toString() : ""}, Realm: ${protectionSpace?.realm ?? ""}"),
+                  "协议：${protectionSpace?.protocol ?? ""}，主机：${protectionSpace?.host ?? ""}，端口：${protectionSpace?.port != null && protectionSpace!.port! > 0 ? protectionSpace.port.toString() : ""}，领域：${protectionSpace?.realm ?? ""}"),
               SizedBox(
                   width: constraints.minWidth,
                   child: DataTable(
@@ -897,21 +897,21 @@ class _StorageManagerState extends State<StorageManager> {
                     columns: const <DataColumn>[
                       DataColumn(
                         label: Text(
-                          "Username",
+                          "用户名",
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 16.0),
                         ),
                       ),
                       DataColumn(
                         label: Text(
-                          "Password",
+                          "密码",
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 16.0),
                         ),
                       ),
                       DataColumn(
                         label: Text(
-                          "Delete",
+                          "删除",
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 16.0),
                         ),
@@ -927,7 +927,7 @@ class _StorageManagerState extends State<StorageManager> {
         children.addAll(dataTables);
         children.addAll(<Widget>[
           TextButton(
-            child: const Text("Clear all"),
+            child: const Text("全部清除"),
             onPressed: () async {
               await _httpAuthCredentialDatabase?.clearAllAuthCredentials();
               setState(() {});
@@ -940,7 +940,7 @@ class _StorageManagerState extends State<StorageManager> {
             FocusScope.of(context).unfocus();
           },
           title: const Text(
-            "Http Auth Credentials Database",
+            "HTTP 认证凭据数据库",
             style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
           ),
           children: children,
@@ -1010,7 +1010,7 @@ class _StorageManagerState extends State<StorageManager> {
                 decoration: InputDecoration(labelText: labelName),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter some text';
+                    return '请输入内容';
                   }
                   return null;
                 },
@@ -1025,7 +1025,7 @@ class _StorageManagerState extends State<StorageManager> {
                 decoration: InputDecoration(labelText: labelValue),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter some text';
+                    return '请输入内容';
                   }
                   return null;
                 },
@@ -1033,7 +1033,7 @@ class _StorageManagerState extends State<StorageManager> {
             ),
           ),
           TextButton(
-            child: const Text("Add Item"),
+            child: const Text("添加条目"),
             onPressed: () {
               if (formKey.currentState!.validate()) {
                 setState(() {

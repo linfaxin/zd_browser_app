@@ -26,19 +26,19 @@ class _DevelopersPageState extends State<DevelopersPage> {
             tabs: const [
               Tab(
                 icon: Icon(Icons.code),
-                text: "JavaScript Console",
+                text: "JavaScript 控制台",
               ),
               Tab(
                 icon: Icon(Icons.network_check),
-                text: "Network Info",
+                text: "网络信息",
               ),
               Tab(
                 icon: Icon(Icons.storage),
-                text: "Storage Manager",
+                text: "存储管理",
               ),
             ],
           ),
-          title: const Text('Developers'),
+          title: const Text('开发者工具'),
         )),
         body: const TabBarView(
           physics: NeverScrollableScrollPhysics(),

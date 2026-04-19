@@ -224,13 +224,13 @@ class _DesktopAppBarState extends State<DesktopAppBar> {
                         contextMenu: GenericContextMenu(
                           buttonConfigs: [
                             ContextMenuButtonConfig(
-                              "New Tab",
+                              "新建标签页",
                               onPressed: () {
                                 _addNewTab();
                               },
                             ),
                             ContextMenuButtonConfig(
-                              "Close All",
+                              "关闭全部",
                               onPressed: () {
                                 windowModel.closeAllTabs();
                               },
@@ -297,7 +297,7 @@ class _WebViewTabSelectorState extends State<WebViewTabSelector> {
     final url = tab.webViewModel.url;
     var tabName = tab.webViewModel.title ?? url?.toString() ?? '';
     if (tabName.isEmpty) {
-      tabName = 'New Tab';
+      tabName = '新标签页';
     }
     final tooltipText =
         '$tabName\n${(url?.host ?? '').isEmpty ? url?.toString() : url?.host}'
@@ -328,13 +328,13 @@ class _WebViewTabSelectorState extends State<WebViewTabSelector> {
             contextMenu: GenericContextMenu(
               buttonConfigs: [
                 ContextMenuButtonConfig(
-                  "Reload",
+                  "刷新",
                   onPressed: () {
                     tab.webViewModel.webViewController?.reload();
                   },
                 ),
                 ContextMenuButtonConfig(
-                  "Duplicate",
+                  "复制标签页",
                   onPressed: () {
                     if (tab.webViewModel.url != null) {
                       windowModel.addTab(WebViewTab(
@@ -345,7 +345,7 @@ class _WebViewTabSelectorState extends State<WebViewTabSelector> {
                   },
                 ),
                 ContextMenuButtonConfig(
-                  "Close",
+                  "关闭",
                   onPressed: () {
                     windowModel.closeTab(widget.index);
                   },
@@ -484,7 +484,7 @@ class _OpenTabsViewerState extends State<OpenTabsViewer> {
                 style: Theme.of(context).textTheme.labelLarge,
                 decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.search),
-                  hintText: 'Search open tabs',
+                  hintText: '搜索已打开的标签页',
                   contentPadding: EdgeInsets.only(top: 15),
                   isDense: true,
                 ),
@@ -496,7 +496,7 @@ class _OpenTabsViewerState extends State<OpenTabsViewer> {
             MenuItemButton(
               onPressed: null,
               child: Text(
-                widget.webViewTabs.isEmpty ? 'No tabs open' : 'Tabs open',
+                widget.webViewTabs.isEmpty ? '没有打开的标签页' : '已打开的标签页',
                 style: Theme.of(context).textTheme.labelLarge,
               ),
             ),
@@ -518,19 +518,18 @@ class _OpenTabsViewerState extends State<OpenTabsViewer> {
               final url = w.webViewModel.url;
               final title = (w.webViewModel.title ?? '').isNotEmpty
                   ? w.webViewModel.title!
-                  : 'New Tab';
+                  : '新标签页';
               var subtitle =
                   (url?.host ?? '').isEmpty ? url?.toString() : url?.host;
               final diffTime =
                   DateTime.now().difference(w.webViewModel.lastOpenedTime);
-              var diffTimeSubtitle = 'now';
+              var diffTimeSubtitle = '刚刚';
               if (diffTime.inDays > 0) {
-                diffTimeSubtitle =
-                    '${diffTime.inDays} ${diffTime.inDays == 1 ? 'day' : 'days'} ago';
+                diffTimeSubtitle = '${diffTime.inDays} 天前';
               } else if (diffTime.inMinutes > 0) {
-                diffTimeSubtitle = '${diffTime.inMinutes} min ago';
+                diffTimeSubtitle = '${diffTime.inMinutes} 分钟前';
               } else if (diffTime.inSeconds > 0) {
-                diffTimeSubtitle = '${diffTime.inSeconds} sec ago';
+                diffTimeSubtitle = '${diffTime.inSeconds} 秒前';
               }
 
               final faviconUrl = w.webViewModel.favicon != null

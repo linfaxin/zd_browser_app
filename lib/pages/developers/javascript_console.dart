@@ -65,7 +65,7 @@ class _JavaScriptConsoleState extends State<JavaScriptConsole> {
                   keyboardType: TextInputType.multiline,
                   maxLines: null,
                   decoration: const InputDecoration(
-                      hintText: "document.querySelector('body') ...",
+                      hintText: "document.querySelector('body') …",
                       prefixIcon:
                           Icon(Icons.keyboard_arrow_right, color: Colors.blue),
                       border: InputBorder.none),

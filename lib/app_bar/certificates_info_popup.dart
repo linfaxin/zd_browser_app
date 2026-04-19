@@ -157,7 +157,7 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
                         children: <Widget>[
                           Expanded(
                             child: Text(
-                              "Flutter Browser has verified that ${_topMainCertificate?.issuer(dn: ASN1DistinguishedNames.COMMON_NAME)} has emitted the web site certificate.",
+                              "Flutter 浏览器已确认 ${_topMainCertificate?.issuer(dn: ASN1DistinguishedNames.COMMON_NAME)} 签发了该网站的证书。",
                               softWrap: true,
                               style: const TextStyle(fontSize: 12.0),
                             ),
@@ -169,7 +169,7 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
                       ),
                       RichText(
                         text: TextSpan(
-                            text: "Certificate info",
+                            text: "证书信息",
                             style: const TextStyle(
                                 color: Colors.blue, fontSize: 12.0),
                             recognizer: TapGestureRecognizer()
@@ -222,7 +222,7 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
                                                 mainAxisSize: MainAxisSize.min,
                                                 children: <Widget>[
                                                   const Text(
-                                                    "Certificate Viewer",
+                                                    "证书查看器",
                                                     style: TextStyle(
                                                         fontSize: 24.0,
                                                         color: Colors.black,
@@ -397,30 +397,30 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
   List<Widget> _buildIssuedToSection(X509Certificate x509certificate) {
     var subjectCountryName =
         _findCountryName(x509certificate: x509certificate, isSubject: true) ??
-            "<Not Part Of Certificate>";
+            "（证书中不包含此项）";
     var subjectStateOrProvinceName = _findStateOrProvinceName(
             x509certificate: x509certificate, isSubject: true) ??
-        "<Not Part Of Certificate>";
+        "（证书中不包含此项）";
     var subjectCN =
         _findCommonName(x509certificate: x509certificate, isSubject: true) ??
-            "<Not Part Of Certificate>";
+            "（证书中不包含此项）";
     var subjectO = _findOrganizationName(
             x509certificate: x509certificate, isSubject: true) ??
-        "<Not Part Of Certificate>";
+        "（证书中不包含此项）";
     var subjectU = _findOrganizationUnitName(
             x509certificate: x509certificate, isSubject: true) ??
-        "<Not Part Of Certificate>";
+        "（证书中不包含此项）";
 
     return <Widget>[
       const Text(
-        "ISSUED TO",
+        "颁发给",
         style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
       ),
       const SizedBox(
         height: 5.0,
       ),
       const Text(
-        "Common Name (CN)",
+        "通用名称 (CN)",
         style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
       ),
       Text(
@@ -431,7 +431,7 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
         height: 5.0,
       ),
       const Text(
-        "Organization (O)",
+        "组织 (O)",
         style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
       ),
       Text(
@@ -442,7 +442,7 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
         height: 5.0,
       ),
       const Text(
-        "Organizational Unit (U)",
+        "组织单位 (U)",
         style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
       ),
       Text(
@@ -453,7 +453,7 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
         height: 5.0,
       ),
       const Text(
-        "Country",
+        "国家/地区",
         style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
       ),
       Text(
@@ -464,7 +464,7 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
         height: 5.0,
       ),
       const Text(
-        "State/Province",
+        "省/州",
         style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
       ),
       Text(
@@ -477,19 +477,19 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
   List<Widget> _buildIssuedBySection(X509Certificate x509certificate) {
     var issuerCountryName =
         _findCountryName(x509certificate: x509certificate, isSubject: false) ??
-            "<Not Part Of Certificate>";
+            "（证书中不包含此项）";
     var issuerStateOrProvinceName = _findStateOrProvinceName(
             x509certificate: x509certificate, isSubject: false) ??
-        "<Not Part Of Certificate>";
+        "（证书中不包含此项）";
     var issuerCN =
         _findCommonName(x509certificate: x509certificate, isSubject: false) ??
-            "<Not Part Of Certificate>";
+            "（证书中不包含此项）";
     var issuerO = _findOrganizationName(
             x509certificate: x509certificate, isSubject: false) ??
-        "<Not Part Of Certificate>";
+        "（证书中不包含此项）";
     var issuerU = _findOrganizationUnitName(
             x509certificate: x509certificate, isSubject: false) ??
-        "<Not Part Of Certificate>";
+        "（证书中不包含此项）";
     var serialNumber = x509certificate.serialNumber
             ?.map((byte) {
               var hexValue = byte.toRadixString(16);
@@ -500,24 +500,24 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
             })
             .toList()
             .join(":") ??
-        "<Not Part Of Certificate>";
+        "（证书中不包含此项）";
     var version =
-        x509certificate.version?.toString() ?? "<Not Part Of Certificate>";
-    var sigAlgName = x509certificate.sigAlgName ?? "<Not Part Of Certificate>";
+        x509certificate.version?.toString() ?? "（证书中不包含此项）";
+    var sigAlgName = x509certificate.sigAlgName ?? "（证书中不包含此项）";
 
     return <Widget>[
       const SizedBox(
         height: 15.0,
       ),
       const Text(
-        "ISSUED BY",
+        "颁发者",
         style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
       ),
       const SizedBox(
         height: 5.0,
       ),
       const Text(
-        "Common Name (CN)",
+        "通用名称 (CN)",
         style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
       ),
       Text(
@@ -528,7 +528,7 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
         height: 5.0,
       ),
       const Text(
-        "Organization (O)",
+        "组织 (O)",
         style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
       ),
       Text(
@@ -539,7 +539,7 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
         height: 5.0,
       ),
       const Text(
-        "Organizational Unit (U)",
+        "组织单位 (U)",
         style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
       ),
       Text(
@@ -550,7 +550,7 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
         height: 5.0,
       ),
       const Text(
-        "Country",
+        "国家/地区",
         style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
       ),
       Text(
@@ -561,7 +561,7 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
         height: 5.0,
       ),
       const Text(
-        "State/Province",
+        "省/州",
         style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
       ),
       Text(
@@ -572,7 +572,7 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
         height: 5.0,
       ),
       const Text(
-        "Serial Number",
+        "序列号",
         style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
       ),
       Text(
@@ -583,7 +583,7 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
         height: 5.0,
       ),
       const Text(
-        "Version",
+        "版本",
         style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
       ),
       Text(
@@ -594,7 +594,7 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
         height: 5.0,
       ),
       const Text(
-        "Signature Algorithm",
+        "签名算法",
         style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
       ),
       Text(
@@ -606,25 +606,25 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
 
   List<Widget> _buildValidityPeriodSection(X509Certificate x509certificate) {
     var issuedOnDate = x509certificate.notBefore != null
-        ? DateFormat("dd MMM yyyy HH:mm:ss").format(x509certificate.notBefore!)
-        : "<Not Part Of Certificate>";
+        ? DateFormat("yyyy-MM-dd HH:mm:ss").format(x509certificate.notBefore!)
+        : "（证书中不包含此项）";
     var expiresOnDate = x509certificate.notAfter != null
-        ? DateFormat("dd MMM yyyy HH:mm:ss").format(x509certificate.notAfter!)
-        : "<Not Part Of Certificate>";
+        ? DateFormat("yyyy-MM-dd HH:mm:ss").format(x509certificate.notAfter!)
+        : "（证书中不包含此项）";
 
     return <Widget>[
       const SizedBox(
         height: 15.0,
       ),
       const Text(
-        "VALIDITY PERIOD",
+        "有效期",
         style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
       ),
       const SizedBox(
         height: 5.0,
       ),
       const Text(
-        "Issued on date",
+        "生效日期",
         style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
       ),
       Text(
@@ -635,7 +635,7 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
         height: 5.0,
       ),
       const Text(
-        "Expires on date",
+        "到期日期",
         style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
       ),
       Text(
@@ -647,8 +647,8 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
 
   List<Widget> _buildPublicKeySection(X509Certificate x509certificate) {
     var publicKey = x509certificate.publicKey;
-    var publicKeyAlg = "<Not Part Of Certificate>";
-    var publicKeyAlgParams = "<Not Part Of Certificate>";
+    var publicKeyAlg = "（证书中不包含此项）";
+    var publicKeyAlgParams = "（证书中不包含此项）";
     if (publicKey != null) {
       if (publicKey.algOid != null) {
         publicKeyAlg =
@@ -665,14 +665,14 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
         height: 15.0,
       ),
       const Text(
-        "PUBLIC KEY",
+        "公钥",
         style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
       ),
       const SizedBox(
         height: 5.0,
       ),
       const Text(
-        "Algorithm",
+        "算法",
         style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
       ),
       Text(
@@ -683,7 +683,7 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
         height: 5.0,
       ),
       const Text(
-        "Parameters",
+        "参数",
         style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
       ),
       Text(
@@ -699,14 +699,14 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
         height: 15.0,
       ),
       const Text(
-        "FINGERPRINT",
+        "指纹",
         style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
       ),
       const SizedBox(
         height: 5.0,
       ),
       const Text(
-        "Fingerprint SHA-256",
+        "指纹 SHA-256",
         style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
       ),
       FutureBuilder(
@@ -739,7 +739,7 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
         height: 5.0,
       ),
       const Text(
-        "Fingerprint SHA-1",
+        "指纹 SHA-1",
         style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
       ),
       FutureBuilder(
@@ -775,7 +775,7 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
         height: 15.0,
       ),
       const Text(
-        "EXTENSIONS",
+        "扩展项",
         style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
       ),
     ];
@@ -802,7 +802,7 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
         height: 15.0,
       ),
       Text(
-        "Key Usage ( ${OID.keyUsage.toValue()} )",
+        "密钥用途 ( ${OID.keyUsage.toValue()} )",
         style: const TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
       ),
     ];
@@ -811,8 +811,8 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
                 .map((e) => e)
                 .firstWhereOrNull((oid) => oid == OID.keyUsage.toValue()) !=
             null
-        ? "YES"
-        : "NO";
+        ? "是"
+        : "否";
 
     if (keyUsage.isNotEmpty) {
       for (var i = 0; i < keyUsage.length; i++) {
@@ -824,7 +824,7 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
             RichText(
               text: TextSpan(children: [
                 const TextSpan(
-                    text: "Critical ",
+                    text: "关键扩展 ",
                     style: TextStyle(
                         fontSize: 12.0,
                         fontWeight: FontWeight.bold,
@@ -837,7 +837,7 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
             RichText(
               text: TextSpan(children: [
                 const TextSpan(
-                    text: "Usage ",
+                    text: "用途 ",
                     style: TextStyle(
                         fontSize: 12.0,
                         fontWeight: FontWeight.bold,
@@ -856,7 +856,7 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
           height: 5.0,
         ),
         const Text(
-          "<Not Part Of Certificate>",
+          "（证书中不包含此项）",
           style: TextStyle(fontSize: 14.0),
         ),
       ]);
@@ -874,7 +874,7 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
         height: 15.0,
       ),
       Text(
-        "Basic Constraints ( ${OID.basicConstraints.toValue()} )",
+        "基本约束 ( ${OID.basicConstraints.toValue()} )",
         style: const TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
       ),
     ];
@@ -883,8 +883,8 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
                 .firstWhereOrNull(
                     (oid) => oid == OID.basicConstraints.toValue()) !=
             null
-        ? "YES"
-        : "NO";
+        ? "是"
+        : "否";
     if (basicConstraints != null && basicConstraints.pathLenConstraint == -1) {
       basicConstraintsSection.addAll(<Widget>[
         const SizedBox(
@@ -893,7 +893,7 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
         RichText(
           text: TextSpan(children: [
             const TextSpan(
-                text: "Critical ",
+                text: "关键扩展 ",
                 style: TextStyle(
                     fontSize: 12.0,
                     fontWeight: FontWeight.bold,
@@ -906,13 +906,13 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
         RichText(
           text: const TextSpan(children: [
             TextSpan(
-                text: "Certificate Authority ",
+                text: "证书颁发机构 ",
                 style: TextStyle(
                     fontSize: 12.0,
                     fontWeight: FontWeight.bold,
                     color: Colors.black)),
             TextSpan(
-                text: "NO",
+                text: "否",
                 style: TextStyle(fontSize: 12.0, color: Colors.black))
           ]),
         ),
@@ -925,7 +925,7 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
         RichText(
           text: TextSpan(children: [
             const TextSpan(
-                text: "Critical ",
+                text: "关键扩展 ",
                 style: TextStyle(
                     fontSize: 12.0,
                     fontWeight: FontWeight.bold,
@@ -938,20 +938,20 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
         RichText(
           text: const TextSpan(children: [
             TextSpan(
-                text: "Certificate Authority ",
+                text: "证书颁发机构 ",
                 style: TextStyle(
                     fontSize: 12.0,
                     fontWeight: FontWeight.bold,
                     color: Colors.black)),
             TextSpan(
-                text: "YES",
+                text: "是",
                 style: TextStyle(fontSize: 12.0, color: Colors.black))
           ]),
         ),
         RichText(
           text: TextSpan(children: [
             const TextSpan(
-                text: "Path Length Constraints ",
+                text: "路径长度限制 ",
                 style: TextStyle(
                     fontSize: 12.0,
                     fontWeight: FontWeight.bold,
@@ -976,7 +976,7 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
         height: 15.0,
       ),
       Text(
-        "Extended Key Usage ( ${OID.extKeyUsage.toValue()} )",
+        "扩展密钥用途 ( ${OID.extKeyUsage.toValue()} )",
         style: const TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
       ),
     ];
@@ -984,8 +984,8 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
                 .map((e) => e)
                 .firstWhereOrNull((oid) => oid == OID.extKeyUsage.toValue()) !=
             null
-        ? "YES"
-        : "NO";
+        ? "是"
+        : "否";
     if (extendedKeyUsage.isNotEmpty) {
       for (var i = 0; i < extendedKeyUsage.length; i++) {
         OID oid = OID.fromValue(extendedKeyUsage[i])!;
@@ -997,7 +997,7 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
           RichText(
             text: TextSpan(children: [
               const TextSpan(
-                  text: "Critical ",
+                  text: "关键扩展 ",
                   style: TextStyle(
                       fontSize: 12.0,
                       fontWeight: FontWeight.bold,
@@ -1010,7 +1010,7 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
           RichText(
             text: TextSpan(children: [
               TextSpan(
-                  text: "Purpose #${i + 1} ",
+                  text: "用途 #${i + 1} ",
                   style: const TextStyle(
                       fontSize: 12.0,
                       fontWeight: FontWeight.bold,
@@ -1028,7 +1028,7 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
           height: 5.0,
         ),
         const Text(
-          "<Not Part Of Certificate>",
+          "（证书中不包含此项）",
           style: TextStyle(fontSize: 14.0),
         ),
       ]);
@@ -1046,7 +1046,7 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
         height: 15.0,
       ),
       Text(
-        "Subject Key Identifier ( ${OID.subjectKeyIdentifier.toValue()} )",
+        "使用者密钥标识符 ( ${OID.subjectKeyIdentifier.toValue()} )",
         style: const TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
       ),
     ];
@@ -1055,8 +1055,8 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
                 .firstWhereOrNull(
                     (oid) => oid == OID.subjectKeyIdentifier.toValue()) !=
             null
-        ? "YES"
-        : "NO";
+        ? "是"
+        : "否";
     if (subjectKeyIdentifier?.value != null &&
         subjectKeyIdentifier!.value!.isNotEmpty) {
       var subjectKeyIdentifierToHexValue = subjectKeyIdentifier.value!
@@ -1077,7 +1077,7 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
         RichText(
           text: TextSpan(children: [
             const TextSpan(
-                text: "Critical ",
+                text: "关键扩展 ",
                 style: TextStyle(
                     fontSize: 12.0,
                     fontWeight: FontWeight.bold,
@@ -1090,7 +1090,7 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
         RichText(
           text: TextSpan(children: [
             const TextSpan(
-                text: "Key ID ",
+                text: "密钥 ID ",
                 style: TextStyle(
                     fontSize: 12.0,
                     fontWeight: FontWeight.bold,
@@ -1107,7 +1107,7 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
           height: 5.0,
         ),
         const Text(
-          "<Not Part Of Certificate>",
+          "（证书中不包含此项）",
           style: TextStyle(fontSize: 14.0),
         ),
       ]);
@@ -1125,7 +1125,7 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
         height: 15.0,
       ),
       Text(
-        "Authority Key Identifier ( ${OID.authorityKeyIdentifier.toValue()} )",
+        "颁发机构密钥标识符 ( ${OID.authorityKeyIdentifier.toValue()} )",
         style: const TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
       ),
     ];
@@ -1134,8 +1134,8 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
                 .firstWhereOrNull(
                     (oid) => oid == OID.authorityKeyIdentifier.toValue()) !=
             null
-        ? "YES"
-        : "NO";
+        ? "是"
+        : "否";
     if (authorityKeyIdentifier?.keyIdentifier != null &&
         authorityKeyIdentifier!.keyIdentifier!.isNotEmpty) {
       var authorityKeyIdentifierToHexValue =
@@ -1157,7 +1157,7 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
         RichText(
           text: TextSpan(children: [
             const TextSpan(
-                text: "Critical ",
+                text: "关键扩展 ",
                 style: TextStyle(
                     fontSize: 12.0,
                     fontWeight: FontWeight.bold,
@@ -1170,7 +1170,7 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
         RichText(
           text: TextSpan(children: [
             const TextSpan(
-                text: "Key ID ",
+                text: "密钥 ID ",
                 style: TextStyle(
                     fontSize: 12.0,
                     fontWeight: FontWeight.bold,
@@ -1187,7 +1187,7 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
           height: 5.0,
         ),
         const Text(
-          "<Not Part Of Certificate>",
+          "（证书中不包含此项）",
           style: TextStyle(fontSize: 14.0),
         ),
       ]);
@@ -1204,15 +1204,15 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
                 .map((e) => e)
                 .firstWhereOrNull((oid) => oid == OID.extKeyUsage.toValue()) !=
             null
-        ? "YES"
-        : "NO";
+        ? "是"
+        : "否";
 
     var certificatePoliciesSection = <Widget>[
       const SizedBox(
         height: 15.0,
       ),
       Text(
-        "Certificate Policies ( ${OID.certificatePolicies.toValue()} )",
+        "证书策略 ( ${OID.certificatePolicies.toValue()} )",
         style: const TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
       ),
       const SizedBox(
@@ -1221,7 +1221,7 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
       RichText(
         text: TextSpan(children: [
           const TextSpan(
-              text: "Critical ",
+              text: "关键扩展 ",
               style: TextStyle(
                   fontSize: 12.0,
                   fontWeight: FontWeight.bold,
@@ -1242,7 +1242,7 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
           RichText(
             text: TextSpan(children: [
               TextSpan(
-                  text: "ID policy num. ${i + 1} ",
+                  text: "策略编号 ${i + 1} ",
                   style: const TextStyle(
                       fontSize: 12.0,
                       fontWeight: FontWeight.bold,
@@ -1262,7 +1262,7 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
           height: 5.0,
         ),
         const Text(
-          "<Not Part Of Certificate>",
+          "（证书中不包含此项）",
           style: TextStyle(fontSize: 14.0),
         ),
       ]);
@@ -1280,15 +1280,15 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
                 .firstWhereOrNull(
                     (oid) => oid == OID.cRLDistributionPoints.toValue()) !=
             null
-        ? "YES"
-        : "NO";
+        ? "是"
+        : "否";
 
     var cRLDistributionPointsSection = <Widget>[
       const SizedBox(
         height: 15.0,
       ),
       Text(
-        "CRL Distribution Points ( ${OID.cRLDistributionPoints.toValue()} )",
+        "CRL 分发点 ( ${OID.cRLDistributionPoints.toValue()} )",
         style: const TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
       ),
       const SizedBox(
@@ -1297,7 +1297,7 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
       RichText(
         text: TextSpan(children: [
           const TextSpan(
-              text: "Critical ",
+              text: "关键扩展 ",
               style: TextStyle(
                   fontSize: 12.0,
                   fontWeight: FontWeight.bold,
@@ -1316,7 +1316,7 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
           RichText(
             text: TextSpan(children: [
               const TextSpan(
-                  text: "URI ",
+                  text: "URI：",
                   style: TextStyle(
                       fontSize: 12.0,
                       fontWeight: FontWeight.bold,
@@ -1355,7 +1355,7 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
           height: 5.0,
         ),
         const Text(
-          "<Not Part Of Certificate>",
+          "（证书中不包含此项）",
           style: TextStyle(fontSize: 14.0),
         ),
       ]);
@@ -1373,15 +1373,15 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
                 .firstWhereOrNull(
                     (oid) => oid == OID.authorityInfoAccess.toValue()) !=
             null
-        ? "YES"
-        : "NO";
+        ? "是"
+        : "否";
 
     var authorityInfoAccessSection = <Widget>[
       const SizedBox(
         height: 15.0,
       ),
       Text(
-        "Authority Info Access ( ${OID.authorityInfoAccess.toValue()} )",
+        "颁发机构信息访问 ( ${OID.authorityInfoAccess.toValue()} )",
         style: const TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
       ),
       const SizedBox(
@@ -1390,7 +1390,7 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
       RichText(
         text: TextSpan(children: [
           const TextSpan(
-              text: "Critical ",
+              text: "关键扩展 ",
               style: TextStyle(
                   fontSize: 12.0,
                   fontWeight: FontWeight.bold,
@@ -1413,7 +1413,7 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
           RichText(
             text: TextSpan(children: [
               TextSpan(
-                  text: "Method #${i + 1} ",
+                  text: "方法 #${i + 1} ",
                   style: const TextStyle(
                       fontSize: 12.0,
                       fontWeight: FontWeight.bold,
@@ -1429,7 +1429,7 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
           RichText(
             text: TextSpan(children: [
               const TextSpan(
-                  text: "URI ",
+                  text: "URI：",
                   style: TextStyle(
                       fontSize: 12.0,
                       fontWeight: FontWeight.bold,
@@ -1460,7 +1460,7 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
           height: 5.0,
         ),
         const Text(
-          "<Not Part Of Certificate>",
+          "（证书中不包含此项）",
           style: TextStyle(fontSize: 14.0),
         ),
       ]);
@@ -1478,7 +1478,7 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
         height: 15.0,
       ),
       Text(
-        "Subject Alternative Names ( ${OID.subjectAltName.toValue()} )",
+        "使用者备用名称 ( ${OID.subjectAltName.toValue()} )",
         style: const TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
       ),
     ];
@@ -1487,8 +1487,8 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
                 .firstWhereOrNull(
                     (oid) => oid == OID.subjectAltName.toValue()) !=
             null
-        ? "YES"
-        : "NO";
+        ? "是"
+        : "否";
     if (subjectAlternativeNames.isNotEmpty) {
       subjectAlternativeNamesSection.addAll(<Widget>[
         const SizedBox(
@@ -1497,7 +1497,7 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
         RichText(
           text: TextSpan(children: [
             const TextSpan(
-                text: "Critical ",
+                text: "关键扩展 ",
                 style: TextStyle(
                     fontSize: 12.0,
                     fontWeight: FontWeight.bold,
@@ -1516,7 +1516,7 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
           RichText(
             text: TextSpan(children: [
               const TextSpan(
-                  text: "DNS Name ",
+                  text: "DNS 名称 ",
                   style: TextStyle(
                       fontSize: 12.0,
                       fontWeight: FontWeight.bold,
@@ -1534,7 +1534,7 @@ class _CertificateInfoPopupState extends State<CertificateInfoPopup> {
           height: 5.0,
         ),
         const Text(
-          "<Not Part Of Certificate>",
+          "（证书中不包含此项）",
           style: TextStyle(fontSize: 14.0),
         ),
       ]);

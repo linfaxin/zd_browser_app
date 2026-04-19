@@ -285,7 +285,7 @@ class _WebViewTabAppBarState extends State<WebViewTabAppBar>
               border: outlineBorder,
               focusedBorder: outlineBorder,
               enabledBorder: outlineBorder,
-              hintText: "Search for or type a web address",
+              hintText: "搜索或输入网址",
               hintStyle: const TextStyle(color: Colors.black54, fontSize: 16.0),
             ),
             style: const TextStyle(color: Colors.black, fontSize: 16.0),
@@ -566,7 +566,7 @@ class _WebViewTabAppBarState extends State<WebViewTabAppBar>
                                     ScaffoldMessenger.of(context)
                                         .showSnackBar(SnackBar(
                                       content: Text(
-                                          "${webViewModel.url} saved offline!"),
+                                          "${webViewModel.url} 已保存为离线页面"),
                                     ));
                                   }
                                   browserModel.save();
@@ -574,7 +574,7 @@ class _WebViewTabAppBarState extends State<WebViewTabAppBar>
                                   if (mounted) {
                                     ScaffoldMessenger.of(context)
                                         .showSnackBar(const SnackBar(
-                                      content: Text("Unable to save!"),
+                                      content: Text("无法保存"),
                                     ));
                                   }
                                 }
@@ -1321,7 +1321,7 @@ class _WebViewTabAppBarState extends State<WebViewTabAppBar>
             content: Image.memory(screenshot),
             actions: <Widget>[
               ElevatedButton(
-                child: const Text("Share"),
+                child: const Text("分享"),
                 onPressed: () async {
                   await SharePlus.instance.share(ShareParams(files: [XFile(file.path)]));
                 },

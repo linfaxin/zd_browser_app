@@ -2,33 +2,33 @@ import 'package:flutter_browser/util.dart';
 
 class PopupMenuActions {
   // ignore: constant_identifier_names
-  static const String OPEN_NEW_WINDOW = "Open New Window";
+  static const String OPEN_NEW_WINDOW = "新建窗口";
   // ignore: constant_identifier_names
-  static const String SAVE_WINDOW = "Save Window";
+  static const String SAVE_WINDOW = "保存窗口";
   // ignore: constant_identifier_names
-  static const String SAVED_WINDOWS = "Saved Windows";
+  static const String SAVED_WINDOWS = "已保存的窗口";
   // ignore: constant_identifier_names
-  static const String NEW_TAB = "New tab";
+  static const String NEW_TAB = "新建标签页";
   // ignore: constant_identifier_names
-  static const String NEW_INCOGNITO_TAB = "New incognito tab";
+  static const String NEW_INCOGNITO_TAB = "新建无痕标签页";
   // ignore: constant_identifier_names
-  static const String FAVORITES = "Favorites";
+  static const String FAVORITES = "收藏夹";
   // ignore: constant_identifier_names
-  static const String HISTORY = "History";
+  static const String HISTORY = "历史记录";
   // ignore: constant_identifier_names
-  static const String WEB_ARCHIVES = "Web Archives";
+  static const String WEB_ARCHIVES = "网页归档";
   // ignore: constant_identifier_names
-  static const String SHARE = "Share";
+  static const String SHARE = "分享";
   // ignore: constant_identifier_names
-  static const String FIND_ON_PAGE = "Find on page";
+  static const String FIND_ON_PAGE = "在页面中查找";
   // ignore: constant_identifier_names
-  static const String DESKTOP_MODE = "Desktop mode";
+  static const String DESKTOP_MODE = "桌面版网站";
   // ignore: constant_identifier_names
-  static const String SETTINGS = "Settings";
+  static const String SETTINGS = "设置";
   // ignore: constant_identifier_names
-  static const String DEVELOPERS = "Developers";
+  static const String DEVELOPERS = "开发者工具";
   // ignore: constant_identifier_names
-  static const String INAPPWEBVIEW_PROJECT = "InAppWebView Project";
+  static const String INAPPWEBVIEW_PROJECT = "InAppWebView 项目";
 
   static List<String> get choices {
     if (Util.isMobile()) {

@@ -13,10 +13,10 @@ import '../../custom_popup_menu_item.dart';
 
 class PopupSettingsMenuActions {
   // ignore: constant_identifier_names
-  static const String RESET_BROWSER_SETTINGS = "Reset Browser Settings";
+  static const String RESET_BROWSER_SETTINGS = "重置浏览器设置";
 
   // ignore: constant_identifier_names
-  static const String RESET_WEBVIEW_SETTINGS = "Reset WebView Settings";
+  static const String RESET_WEBVIEW_SETTINGS = "重置 WebView 设置";
 
   static const List<String> choices = <String>[
     RESET_BROWSER_SETTINGS,
@@ -45,7 +45,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 },
                 tabs: const [
                   Tab(
-                    text: "Cross-Platform",
+                    text: "通用",
                     icon: SizedBox(
                       width: 25,
                       height: 25,
@@ -55,7 +55,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     ),
                   ),
                   Tab(
-                    text: "Android",
+                    text: "安卓",
                     icon: Icon(
                       Icons.android,
                       color: Colors.green,
@@ -67,7 +67,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   ),
                 ]),
             title: const Text(
-              "Settings",
+              "设置",
             ),
             actions: <Widget>[
               PopupMenuButton<String>(

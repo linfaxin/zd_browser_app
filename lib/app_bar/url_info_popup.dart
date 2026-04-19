@@ -22,9 +22,9 @@ class UrlInfoPopup extends StatefulWidget {
 }
 
 class _UrlInfoPopupState extends State<UrlInfoPopup> {
-  var text1 = "Your connection to this website is not protected";
+  var text1 = "您与此网站的连接未加密保护";
   var text2 =
-      "You should not enter sensitive data on this site (e.g. passwords or credit cards) because they could be intercepted by malicious users.";
+      "请勿在此网站输入敏感信息（例如密码或银行卡号），否则可能被恶意用户窃取。";
 
   var showFullInfoUrl = false;
   var defaultTextSpanStyle = const TextStyle(
@@ -36,9 +36,9 @@ class _UrlInfoPopupState extends State<UrlInfoPopup> {
   Widget build(BuildContext context) {
     var webViewModel = Provider.of<WebViewModel>(context, listen: true);
     if (webViewModel.isSecure) {
-      text1 = "Your connection is protected";
+      text1 = "连接已加密保护";
       text2 =
-          "Your sensitive data (e.g. passwords or credit card numbers) remains private when it is sent to this site.";
+          "发送到该网站的敏感信息（例如密码或银行卡号）将保持私密。";
     }
     var url = webViewModel.url;
 
@@ -103,7 +103,7 @@ class _UrlInfoPopupState extends State<UrlInfoPopup> {
                 text: "$text2 ",
               ),
               TextSpan(
-                text: "Details",
+                text: "详情",
                 style: const TextStyle(color: Colors.blue),
                 recognizer: TapGestureRecognizer()
                   ..onTap = () async {
@@ -131,7 +131,7 @@ class _UrlInfoPopupState extends State<UrlInfoPopup> {
           alignment: Alignment.centerRight,
           child: ElevatedButton(
             child: const Text(
-              "WebView Tab Settings",
+              "WebView 标签页设置",
             ),
             onPressed: () async {
               Navigator.maybePop(context);

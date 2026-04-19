@@ -52,7 +52,7 @@ class _NetworkInfoState extends State<NetworkInfo> {
                     width: constraints.maxWidth / 3.0,
                     alignment: Alignment.center,
                     child: const Text(
-                      "Name",
+                      "名称",
                       style: TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 16.0),
                     ),
@@ -61,7 +61,7 @@ class _NetworkInfoState extends State<NetworkInfo> {
                     width: constraints.maxWidth / 4,
                     alignment: Alignment.center,
                     child: const Text(
-                      "Domain",
+                      "域名",
                       style: TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 16.0),
                     ),
@@ -70,7 +70,7 @@ class _NetworkInfoState extends State<NetworkInfo> {
                     width: constraints.maxWidth / 4,
                     alignment: Alignment.center,
                     child: const Text(
-                      "Type",
+                      "类型",
                       style: TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 16.0),
                     ),
@@ -79,7 +79,7 @@ class _NetworkInfoState extends State<NetworkInfo> {
                     child: Container(
                       alignment: Alignment.center,
                       child: const Text(
-                        "Time",
+                        "耗时",
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 16.0),
                       ),

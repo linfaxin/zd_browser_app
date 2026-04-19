@@ -31,12 +31,12 @@ class _AndroidSettingsState extends State<AndroidSettings> {
 
     var widgets = <Widget>[
       const ListTile(
-        title: Text("Current WebView Android Settings"),
+        title: Text("当前 WebView（Android）设置"),
         enabled: false,
       ),
       ListTile(
-        title: const Text("Text Zoom"),
-        subtitle: const Text("Sets the text zoom of the page in percent."),
+        title: const Text("文字缩放"),
+        subtitle: const Text("以百分比设置页面文字缩放。"),
         trailing: SizedBox(
           width: 50.0,
           child: TextFormField(
@@ -56,9 +56,9 @@ class _AndroidSettingsState extends State<AndroidSettings> {
         ),
       ),
       SwitchListTile(
-        title: const Text("Clear Session Cache"),
+        title: const Text("清除会话缓存"),
         subtitle: const Text(
-            "Sets whether the WebView should have the session cookie cache cleared before the new window is opened."),
+            "打开新窗口前是否清除会话 Cookie 缓存。"),
         value: currentWebViewModel.settings?.clearSessionCache ?? false,
         onChanged: (value) async {
           currentWebViewModel.settings?.clearSessionCache = value;
@@ -70,9 +70,9 @@ class _AndroidSettingsState extends State<AndroidSettings> {
         },
       ),
       SwitchListTile(
-        title: const Text("Built In Zoom Controls"),
+        title: const Text("内置缩放控件"),
         subtitle: const Text(
-            "Sets whether the WebView should use its built-in zoom mechanisms."),
+            "是否使用 WebView 内置缩放机制。"),
         value: currentWebViewModel.settings?.builtInZoomControls ?? false,
         onChanged: (value) async {
           currentWebViewModel.settings?.builtInZoomControls = value;
@@ -84,9 +84,9 @@ class _AndroidSettingsState extends State<AndroidSettings> {
         },
       ),
       SwitchListTile(
-        title: const Text("Display Zoom Controls"),
+        title: const Text("显示缩放控件"),
         subtitle: const Text(
-            "Sets whether the WebView should display on-screen zoom controls when using the built-in zoom mechanisms."),
+            "使用内置缩放时是否显示屏幕上的缩放控件。"),
         value: currentWebViewModel.settings?.displayZoomControls ?? false,
         onChanged: (value) async {
           currentWebViewModel.settings?.displayZoomControls = value;
@@ -98,9 +98,9 @@ class _AndroidSettingsState extends State<AndroidSettings> {
         },
       ),
       SwitchListTile(
-        title: const Text("Database storage API"),
+        title: const Text("数据库存储 API"),
         subtitle: const Text(
-            "Sets whether the Database storage API should be enabled."),
+            "是否启用数据库存储 API。"),
         value: currentWebViewModel.settings?.databaseEnabled ?? true,
         onChanged: (value) async {
           currentWebViewModel.settings?.databaseEnabled = value;
@@ -112,9 +112,9 @@ class _AndroidSettingsState extends State<AndroidSettings> {
         },
       ),
       SwitchListTile(
-        title: const Text("DOM storage API"),
+        title: const Text("DOM 存储 API"),
         subtitle:
-            const Text("Sets whether the DOM storage API should be enabled."),
+            const Text("是否启用 DOM 存储 API。"),
         value: currentWebViewModel.settings?.domStorageEnabled ?? true,
         onChanged: (value) {
           setState(() {
@@ -127,9 +127,9 @@ class _AndroidSettingsState extends State<AndroidSettings> {
         },
       ),
       SwitchListTile(
-        title: const Text("Use Wide View Port"),
+        title: const Text("使用宽视口"),
         subtitle: const Text(
-            "Sets whether the WebView should enable support for the \"viewport\" HTML meta tag or should use a wide viewport."),
+            "是否支持 HTML viewport 元标签或使用宽视口。"),
         value: currentWebViewModel.settings?.useWideViewPort ?? true,
         onChanged: (value) async {
           currentWebViewModel.settings?.useWideViewPort = value;
@@ -141,16 +141,16 @@ class _AndroidSettingsState extends State<AndroidSettings> {
         },
       ),
       const ListTile(
-        title: Text("Mixed Content Mode"),
+        title: Text("混合内容模式"),
         subtitle: Text(
-            "Configures the WebView's behavior when a secure origin attempts to load a resource from an insecure origin."),
+            "配置 HTTPS 页面加载不安全资源时的行为。"),
       ),
       Container(
         padding: const EdgeInsets.only(
             left: 20.0, top: 0.0, right: 20.0, bottom: 10.0),
         alignment: Alignment.center,
         child: DropdownButton<MixedContentMode>(
-          hint: const Text("Mixed Content Mode"),
+          hint: const Text("混合内容模式"),
           onChanged: (value) async {
             currentWebViewModel.settings?.mixedContentMode = value;
             webViewController?.setSettings(
@@ -174,9 +174,9 @@ class _AndroidSettingsState extends State<AndroidSettings> {
         ),
       ),
       SwitchListTile(
-        title: const Text("Allow Content Access"),
+        title: const Text("允许内容访问"),
         subtitle: const Text(
-            "Enables or disables content URL access within WebView. Content URL access allows WebView to load content from a content provider installed in the system."),
+            "启用或禁用 WebView 中的 content:// 访问，以便从系统内容提供程序加载内容。"),
         value: currentWebViewModel.settings?.allowContentAccess ?? true,
         onChanged: (value) async {
           currentWebViewModel.settings?.allowContentAccess = value;
@@ -188,9 +188,9 @@ class _AndroidSettingsState extends State<AndroidSettings> {
         },
       ),
       SwitchListTile(
-        title: const Text("Allow File Access"),
+        title: const Text("允许文件访问"),
         subtitle: const Text(
-            "Enables or disables file access within WebView. Note that this enables or disables file system access only."),
+            "启用或禁用 WebView 内的文件访问（仅影响文件系统访问）。"),
         value: currentWebViewModel.settings?.allowFileAccess ?? true,
         onChanged: (value) async {
           currentWebViewModel.settings?.allowFileAccess = value;
@@ -202,9 +202,9 @@ class _AndroidSettingsState extends State<AndroidSettings> {
         },
       ),
       const ListTile(
-        title: Text("App Cache Path"),
+        title: Text("应用缓存路径"),
         subtitle: Text(
-            "Sets the path to the Application Caches files. In order for the Application Caches API to be enabled, this option must be set a path to which the application can write."),
+            "设置应用缓存文件路径。要启用应用缓存 API，必须设置为应用可写的路径。"),
       ),
       Container(
         padding: const EdgeInsets.only(
@@ -226,9 +226,9 @@ class _AndroidSettingsState extends State<AndroidSettings> {
         ),
       ),
       SwitchListTile(
-        title: const Text("Block Network Image"),
+        title: const Text("阻止网络图片"),
         subtitle: const Text(
-            "Sets whether the WebView should not load image resources from the network (resources accessed via http and https URI schemes)."),
+            "是否阻止通过网络（http/https）加载图片资源。"),
         value: currentWebViewModel.settings?.blockNetworkImage ?? false,
         onChanged: (value) async {
           currentWebViewModel.settings?.blockNetworkImage = value;
@@ -240,9 +240,9 @@ class _AndroidSettingsState extends State<AndroidSettings> {
         },
       ),
       SwitchListTile(
-        title: const Text("Block Network Loads"),
+        title: const Text("阻止网络加载"),
         subtitle: const Text(
-            "Sets whether the WebView should not load resources from the network."),
+            "是否阻止从网络加载资源。"),
         value: currentWebViewModel.settings?.blockNetworkLoads ?? false,
         onChanged: (value) async {
           currentWebViewModel.settings?.blockNetworkLoads = value;
@@ -254,16 +254,16 @@ class _AndroidSettingsState extends State<AndroidSettings> {
         },
       ),
       const ListTile(
-        title: Text("Cache Mode"),
+        title: Text("缓存模式"),
         subtitle: Text(
-            "Overrides the way the cache is used. The way the cache is used is based on the navigation type."),
+            "覆盖缓存使用方式，具体取决于导航类型。"),
       ),
       Container(
         padding: const EdgeInsets.only(
             left: 20.0, top: 0.0, right: 20.0, bottom: 10.0),
         alignment: Alignment.center,
         child: DropdownButton<CacheMode>(
-          hint: const Text("Cache Mode"),
+          hint: const Text("缓存模式"),
           onChanged: (value) async {
             currentWebViewModel.settings?.cacheMode = value;
             webViewController?.setSettings(
@@ -287,8 +287,8 @@ class _AndroidSettingsState extends State<AndroidSettings> {
         ),
       ),
       ListTile(
-        title: const Text("Cursive Font Family"),
-        subtitle: const Text("Sets the cursive font family name."),
+        title: const Text("草书字体"),
+        subtitle: const Text("设置草书字体族名称。"),
         trailing: SizedBox(
           width: MediaQuery.of(context).size.width / 3,
           child: TextFormField(
@@ -308,8 +308,8 @@ class _AndroidSettingsState extends State<AndroidSettings> {
         ),
       ),
       ListTile(
-        title: const Text("Default Fixed Font Size"),
-        subtitle: const Text("Sets the default fixed font size."),
+        title: const Text("默认等宽字号"),
+        subtitle: const Text("设置默认等宽字体大小。"),
         trailing: SizedBox(
           width: 50,
           child: TextFormField(
@@ -331,8 +331,8 @@ class _AndroidSettingsState extends State<AndroidSettings> {
         ),
       ),
       ListTile(
-        title: const Text("Default Font Size"),
-        subtitle: const Text("Sets the default font size."),
+        title: const Text("默认字号"),
+        subtitle: const Text("设置默认字体大小。"),
         trailing: SizedBox(
           width: 50.0,
           child: TextFormField(
@@ -353,9 +353,9 @@ class _AndroidSettingsState extends State<AndroidSettings> {
         ),
       ),
       ListTile(
-        title: const Text("Default Text Encoding Name"),
+        title: const Text("默认文本编码"),
         subtitle: const Text(
-            "Sets the default text encoding name to use when decoding html pages."),
+            "解码 HTML 页面时使用的默认文本编码名称。"),
         trailing: SizedBox(
           width: MediaQuery.of(context).size.width / 3,
           child: TextFormField(
@@ -375,16 +375,16 @@ class _AndroidSettingsState extends State<AndroidSettings> {
         ),
       ),
       const ListTile(
-        title: Text("Disabled Action Mode Menu Items"),
+        title: Text("禁用的操作模式菜单项"),
         subtitle: Text(
-            "Disables the action mode menu items according to menuItems flag."),
+            "根据 menuItems 标志禁用操作模式菜单项。"),
       ),
       Container(
         padding: const EdgeInsets.only(
             left: 20.0, top: 0.0, right: 20.0, bottom: 10.0),
         alignment: Alignment.center,
         child: DropdownButton<ActionModeMenuItem>(
-          hint: const Text("Action Mode Menu Items"),
+          hint: const Text("操作模式菜单项"),
           onChanged: (value) async {
             currentWebViewModel.settings?.disabledActionModeMenuItems = value;
             webViewController?.setSettings(
@@ -408,8 +408,8 @@ class _AndroidSettingsState extends State<AndroidSettings> {
         ),
       ),
       ListTile(
-        title: const Text("Fantasy Font Family"),
-        subtitle: const Text("Sets the fantasy font family name."),
+        title: const Text("装饰字体"),
+        subtitle: const Text("设置装饰性字体族名称。"),
         trailing: SizedBox(
           width: MediaQuery.of(context).size.width / 3,
           child: TextFormField(
@@ -429,8 +429,8 @@ class _AndroidSettingsState extends State<AndroidSettings> {
         ),
       ),
       ListTile(
-        title: const Text("Fixed Font Family"),
-        subtitle: const Text("Sets the fixed font family name."),
+        title: const Text("等宽字体"),
+        subtitle: const Text("设置等宽字体族名称。"),
         trailing: SizedBox(
           width: MediaQuery.of(context).size.width / 3,
           child: TextFormField(
@@ -450,10 +450,10 @@ class _AndroidSettingsState extends State<AndroidSettings> {
         ),
       ),
       ListTile(
-        title: const Text("Force Dark"),
-        subtitle: const Text("Set the force dark mode for this WebView."),
+        title: const Text("强制深色"),
+        subtitle: const Text("设置 WebView 的强制深色模式。"),
         trailing: DropdownButton<ForceDark>(
-          hint: const Text("Force Dark"),
+          hint: const Text("强制深色"),
           onChanged: (value) async {
             currentWebViewModel.settings?.forceDark = value;
             webViewController?.setSettings(
@@ -477,8 +477,8 @@ class _AndroidSettingsState extends State<AndroidSettings> {
         ),
       ),
       SwitchListTile(
-        title: const Text("Geolocation Enabled"),
-        subtitle: const Text("Sets whether Geolocation API is enabled."),
+        title: const Text("启用地理位置"),
+        subtitle: const Text("是否启用地理位置 API。"),
         value: currentWebViewModel.settings?.geolocationEnabled ?? true,
         onChanged: (value) async {
           currentWebViewModel.settings?.geolocationEnabled = value;
@@ -490,11 +490,11 @@ class _AndroidSettingsState extends State<AndroidSettings> {
         },
       ),
       ListTile(
-        title: const Text("Layout Algorithm"),
+        title: const Text("布局算法"),
         subtitle: const Text(
-            "Sets the underlying layout algorithm. This will cause a re-layout of the WebView."),
+            "设置底层布局算法，将触发 WebView 重新布局。"),
         trailing: DropdownButton<LayoutAlgorithm>(
-          hint: const Text("Layout Algorithm"),
+          hint: const Text("布局算法"),
           onChanged: (value) async {
             currentWebViewModel.settings?.layoutAlgorithm = value;
             webViewController?.setSettings(
@@ -518,9 +518,9 @@ class _AndroidSettingsState extends State<AndroidSettings> {
         ),
       ),
       SwitchListTile(
-        title: const Text("Load With Overview Mode"),
+        title: const Text("概览模式加载"),
         subtitle: const Text(
-            "Sets whether the WebView loads pages in overview mode, that is, zooms out the content to fit on screen by width."),
+            "是否以概览模式加载页面（缩小内容以按宽度适配屏幕）。"),
         value: currentWebViewModel.settings?.loadWithOverviewMode ?? false,
         onChanged: (value) async {
           currentWebViewModel.settings?.loadWithOverviewMode = value;
@@ -532,9 +532,9 @@ class _AndroidSettingsState extends State<AndroidSettings> {
         },
       ),
       SwitchListTile(
-        title: const Text("Loads Images Automatically"),
+        title: const Text("自动加载图片"),
         subtitle: const Text(
-            "Sets whether the WebView should load image resources. Note that this method controls loading of all images, including those embedded using the data URI scheme."),
+            "是否加载图片资源（包括 data URI 嵌入的图片）。"),
         value: currentWebViewModel.settings?.loadsImagesAutomatically ?? true,
         onChanged: (value) async {
           currentWebViewModel.settings?.loadsImagesAutomatically = value;
@@ -546,8 +546,8 @@ class _AndroidSettingsState extends State<AndroidSettings> {
         },
       ),
       ListTile(
-        title: const Text("Minimum Logical Font Size"),
-        subtitle: const Text("Sets the minimum logical font size."),
+        title: const Text("最小逻辑字号"),
+        subtitle: const Text("设置最小逻辑字体大小。"),
         trailing: SizedBox(
           width: 50.0,
           child: TextFormField(
@@ -569,9 +569,9 @@ class _AndroidSettingsState extends State<AndroidSettings> {
         ),
       ),
       ListTile(
-        title: const Text("Initial Scale"),
+        title: const Text("初始缩放"),
         subtitle: const Text(
-            "Sets the initial scale for this WebView. 0 means default."),
+            "设置初始缩放比例，0 表示默认。"),
         trailing: SizedBox(
           width: 50.0,
           child: TextFormField(
@@ -591,9 +591,9 @@ class _AndroidSettingsState extends State<AndroidSettings> {
         ),
       ),
       SwitchListTile(
-        title: const Text("Need Initial Focus"),
+        title: const Text("需要初始焦点"),
         subtitle:
-            const Text("Tells the WebView whether it needs to set a node."),
+            const Text("告知 WebView 是否需要设置焦点节点。"),
         value: currentWebViewModel.settings?.needInitialFocus ?? true,
         onChanged: (value) async {
           currentWebViewModel.settings?.needInitialFocus = value;
@@ -605,9 +605,9 @@ class _AndroidSettingsState extends State<AndroidSettings> {
         },
       ),
       SwitchListTile(
-        title: const Text("Offscreen Pre Raster"),
+        title: const Text("离屏预栅格化"),
         subtitle: const Text(
-            "Sets whether this WebView should raster tiles when it is offscreen but attached to a window."),
+            "在离屏但仍附加到窗口时是否对瓦片进行栅格化。"),
         value: currentWebViewModel.settings?.offscreenPreRaster ?? false,
         onChanged: (value) async {
           currentWebViewModel.settings?.offscreenPreRaster = value;
@@ -619,8 +619,8 @@ class _AndroidSettingsState extends State<AndroidSettings> {
         },
       ),
       ListTile(
-        title: const Text("Sans-Serif Font Family"),
-        subtitle: const Text("Sets the sans-serif font family name."),
+        title: const Text("无衬线字体"),
+        subtitle: const Text("设置无衬线字体族名称。"),
         trailing: SizedBox(
           width: MediaQuery.of(context).size.width / 3,
           child: TextFormField(
@@ -640,8 +640,8 @@ class _AndroidSettingsState extends State<AndroidSettings> {
         ),
       ),
       ListTile(
-        title: const Text("Serif Font Family"),
-        subtitle: const Text("Sets the serif font family name."),
+        title: const Text("衬线字体"),
+        subtitle: const Text("设置衬线字体族名称。"),
         trailing: SizedBox(
           width: MediaQuery.of(context).size.width / 3,
           child: TextFormField(
@@ -661,8 +661,8 @@ class _AndroidSettingsState extends State<AndroidSettings> {
         ),
       ),
       ListTile(
-        title: const Text("Standard Font Family"),
-        subtitle: const Text("Sets the standard font family name."),
+        title: const Text("标准字体"),
+        subtitle: const Text("设置标准字体族名称。"),
         trailing: SizedBox(
           width: MediaQuery.of(context).size.width / 3,
           child: TextFormField(
@@ -682,9 +682,9 @@ class _AndroidSettingsState extends State<AndroidSettings> {
         ),
       ),
       SwitchListTile(
-        title: const Text("Save Form Data"),
+        title: const Text("保存表单数据"),
         subtitle: const Text(
-            "Sets whether the WebView should save form data. In Android O, the platform has implemented a fully functional Autofill feature to store form data."),
+            "是否保存表单数据。Android O 起系统提供完整的自动填充功能。"),
         value: currentWebViewModel.settings?.saveFormData ?? true,
         onChanged: (value) async {
           currentWebViewModel.settings?.saveFormData = value;
@@ -696,9 +696,9 @@ class _AndroidSettingsState extends State<AndroidSettings> {
         },
       ),
       SwitchListTile(
-        title: const Text("Third Party Cookies Enabled"),
+        title: const Text("允许第三方 Cookie"),
         subtitle: const Text(
-            "Sets whether the Webview should enable third party cookies."),
+            "是否启用第三方 Cookie。"),
         value: currentWebViewModel.settings?.thirdPartyCookiesEnabled ?? true,
         onChanged: (value) async {
           currentWebViewModel.settings?.thirdPartyCookiesEnabled = value;
@@ -710,9 +710,9 @@ class _AndroidSettingsState extends State<AndroidSettings> {
         },
       ),
       SwitchListTile(
-        title: const Text("Hardware Acceleration"),
+        title: const Text("硬件加速"),
         subtitle: const Text(
-            "Sets whether the Webview should enable Hardware Acceleration."),
+            "是否启用硬件加速。"),
         value: currentWebViewModel.settings?.hardwareAcceleration ?? true,
         onChanged: (value) async {
           currentWebViewModel.settings?.hardwareAcceleration = value;
@@ -724,9 +724,9 @@ class _AndroidSettingsState extends State<AndroidSettings> {
         },
       ),
       SwitchListTile(
-        title: const Text("Support Multiple Windows"),
+        title: const Text("支持多窗口"),
         subtitle: const Text(
-            "Sets whether the WebView whether supports multiple windows."),
+            "是否支持多个窗口。"),
         value: currentWebViewModel.settings?.supportMultipleWindows ?? false,
         onChanged: (value) async {
           currentWebViewModel.settings?.supportMultipleWindows = value;
@@ -738,15 +738,15 @@ class _AndroidSettingsState extends State<AndroidSettings> {
         },
       ),
       const ListTile(
-        title: Text("Over Scroll Mode"),
-        subtitle: Text("Sets the WebView's over-scroll mode."),
+        title: Text("过度滚动模式"),
+        subtitle: Text("设置 WebView 的过度滚动模式。"),
       ),
       Container(
         padding: const EdgeInsets.only(
             left: 20.0, top: 0.0, right: 20.0, bottom: 10.0),
         alignment: Alignment.center,
         child: DropdownButton<OverScrollMode>(
-          hint: const Text("Over Scroll Mode"),
+          hint: const Text("过度滚动模式"),
           onChanged: (value) async {
             currentWebViewModel.settings?.overScrollMode = value;
             webViewController?.setSettings(
@@ -770,8 +770,8 @@ class _AndroidSettingsState extends State<AndroidSettings> {
         ),
       ),
       SwitchListTile(
-        title: const Text("Network Available"),
-        subtitle: const Text("Informs WebView of the network state."),
+        title: const Text("网络可用"),
+        subtitle: const Text("向 WebView 告知网络状态。"),
         value: currentWebViewModel.settings?.networkAvailable ?? true,
         onChanged: (value) async {
           currentWebViewModel.settings?.networkAvailable = value;
@@ -783,15 +783,15 @@ class _AndroidSettingsState extends State<AndroidSettings> {
         },
       ),
       const ListTile(
-        title: Text("Scroll Bar Style"),
-        subtitle: Text("Specify the style of the scrollbars."),
+        title: Text("滚动条样式"),
+        subtitle: Text("指定滚动条样式。"),
       ),
       Container(
         padding: const EdgeInsets.only(
             left: 20.0, top: 0.0, right: 20.0, bottom: 10.0),
         alignment: Alignment.center,
         child: DropdownButton<ScrollBarStyle>(
-          hint: const Text("Scroll Bar Style"),
+          hint: const Text("滚动条样式"),
           onChanged: (value) async {
             currentWebViewModel.settings?.scrollBarStyle = value;
             webViewController?.setSettings(
@@ -815,15 +815,15 @@ class _AndroidSettingsState extends State<AndroidSettings> {
         ),
       ),
       const ListTile(
-        title: Text("Vertical Scrollbar Position"),
-        subtitle: Text("Set the position of the vertical scroll bar."),
+        title: Text("纵向滚动条位置"),
+        subtitle: Text("设置纵向滚动条位置。"),
       ),
       Container(
         padding: const EdgeInsets.only(
             left: 20.0, top: 0.0, right: 20.0, bottom: 10.0),
         alignment: Alignment.center,
         child: DropdownButton<VerticalScrollbarPosition>(
-          hint: const Text("Vertical Scrollbar Position"),
+          hint: const Text("纵向滚动条位置"),
           onChanged: (value) async {
             currentWebViewModel.settings?.verticalScrollbarPosition = value;
             webViewController?.setSettings(
@@ -848,9 +848,9 @@ class _AndroidSettingsState extends State<AndroidSettings> {
         ),
       ),
       ListTile(
-        title: const Text("Scroll Bar Default Delay Before Fade"),
+        title: const Text("滚动条淡出前延迟"),
         subtitle: const Text(
-            "Defines the delay in milliseconds that a scrollbar waits before fade out."),
+            "滚动条淡出前等待的毫秒数。"),
         trailing: SizedBox(
           width: 50.0,
           child: TextFormField(
@@ -874,9 +874,9 @@ class _AndroidSettingsState extends State<AndroidSettings> {
         ),
       ),
       SwitchListTile(
-        title: const Text("Scrollbar Fading Enabled"),
+        title: const Text("滚动条淡出"),
         subtitle: const Text(
-            "Define whether scrollbars will fade when the view is not scrolling."),
+            "未滚动时滚动条是否淡出。"),
         value: currentWebViewModel.settings?.scrollbarFadingEnabled ?? true,
         onChanged: (value) async {
           currentWebViewModel.settings?.scrollbarFadingEnabled = value;
@@ -888,9 +888,9 @@ class _AndroidSettingsState extends State<AndroidSettings> {
         },
       ),
       ListTile(
-        title: const Text("Scroll Bar Fade Duration"),
+        title: const Text("滚动条淡出时长"),
         subtitle:
-            const Text("Define the scrollbar fade duration in milliseconds."),
+            const Text("滚动条淡出的持续时间（毫秒）。"),
         trailing: SizedBox(
           width: 50.0,
           child: TextFormField(
@@ -913,15 +913,15 @@ class _AndroidSettingsState extends State<AndroidSettings> {
         ),
       ),
       ListTile(
-        title: const Text("Vertical Scrollbar Thumb Color"),
-        subtitle: const Text("Sets the vertical scrollbar thumb color."),
+        title: const Text("纵向滚动条滑块颜色"),
+        subtitle: const Text("设置纵向滚动条滑块颜色。"),
         trailing: SizedBox(
             width: 140.0,
             child: ElevatedButton(
               child: Text(
                 currentWebViewModel.settings?.verticalScrollbarThumbColor
                         ?.toString() ??
-                    'Pick a color!',
+                    '选择颜色',
                 style: const TextStyle(fontSize: 12.5),
               ),
               onPressed: () {
@@ -958,15 +958,15 @@ class _AndroidSettingsState extends State<AndroidSettings> {
             )),
       ),
       ListTile(
-        title: const Text("Vertical Scrollbar Track Color"),
-        subtitle: const Text("Sets the vertical scrollbar track color."),
+        title: const Text("纵向滚动条轨道颜色"),
+        subtitle: const Text("设置纵向滚动条轨道颜色。"),
         trailing: SizedBox(
             width: 140.0,
             child: ElevatedButton(
               child: Text(
                 currentWebViewModel.settings?.verticalScrollbarTrackColor
                         ?.toString() ??
-                    'Pick a color!',
+                    '选择颜色',
                 style: const TextStyle(fontSize: 12.5),
               ),
               onPressed: () {
@@ -1003,15 +1003,15 @@ class _AndroidSettingsState extends State<AndroidSettings> {
             )),
       ),
       ListTile(
-        title: const Text("Horizontal Scrollbar Thumb Color"),
-        subtitle: const Text("Sets the horizontal scrollbar thumb color."),
+        title: const Text("横向滚动条滑块颜色"),
+        subtitle: const Text("设置横向滚动条滑块颜色。"),
         trailing: SizedBox(
             width: 140.0,
             child: ElevatedButton(
               child: Text(
                 currentWebViewModel.settings?.horizontalScrollbarThumbColor
                         ?.toString() ??
-                    'Pick a color!',
+                    '选择颜色',
                 style: const TextStyle(fontSize: 12.5),
               ),
               onPressed: () {
@@ -1048,15 +1048,15 @@ class _AndroidSettingsState extends State<AndroidSettings> {
             )),
       ),
       ListTile(
-        title: const Text("Horizontal Scrollbar Track Color"),
-        subtitle: const Text("Sets the horizontal scrollbar track color."),
+        title: const Text("横向滚动条轨道颜色"),
+        subtitle: const Text("设置横向滚动条轨道颜色。"),
         trailing: SizedBox(
             width: 140.0,
             child: ElevatedButton(
               child: Text(
                 currentWebViewModel.settings?.horizontalScrollbarTrackColor
                         ?.toString() ??
-                    'Pick a color!',
+                    '选择颜色',
                 style: const TextStyle(fontSize: 12.5),
               ),
               onPressed: () {

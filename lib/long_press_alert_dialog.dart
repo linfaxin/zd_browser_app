@@ -100,7 +100,7 @@ class _LongPressAlertDialogState extends State<LongPressAlertDialog> {
 
     var title = widget.requestFocusNodeHrefResult?.title ?? "";
     if (title.isEmpty) {
-      title = "Link";
+      title = "链接";
     }
 
     return ListTile(
@@ -140,7 +140,7 @@ class _LongPressAlertDialogState extends State<LongPressAlertDialog> {
     browserModel.getSettings();
 
     return ListTile(
-      title: const Center(child: Text("Link Preview")),
+      title: const Center(child: Text("链接预览")),
       subtitle: Container(
         padding: const EdgeInsets.only(top: 15.0),
         height: 250,
@@ -182,7 +182,7 @@ class _LongPressAlertDialogState extends State<LongPressAlertDialog> {
     final windowModel = Provider.of<WindowModel>(context, listen: false);
 
     return ListTile(
-      title: const Text("Open in a new tab"),
+      title: const Text("在新标签页中打开"),
       onTap: () {
         windowModel.addTab(WebViewTab(
           key: GlobalKey(),
@@ -198,7 +198,7 @@ class _LongPressAlertDialogState extends State<LongPressAlertDialog> {
     final windowModel = Provider.of<WindowModel>(context, listen: false);
 
     return ListTile(
-      title: const Text("Open in a new incognito tab"),
+      title: const Text("在新无痕标签页中打开"),
       onTap: () {
         windowModel.addTab(WebViewTab(
           key: GlobalKey(),
@@ -213,7 +213,7 @@ class _LongPressAlertDialogState extends State<LongPressAlertDialog> {
 
   Widget _buildCopyAddressLink() {
     return ListTile(
-      title: const Text("Copy address link"),
+      title: const Text("复制链接地址"),
       onTap: () {
         Clipboard.setData(ClipboardData(
             text: widget.requestFocusNodeHrefResult?.url.toString() ??
@@ -229,7 +229,7 @@ class _LongPressAlertDialogState extends State<LongPressAlertDialog> {
       title: const Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text("Share link"),
+            Text("分享链接"),
             Padding(
               padding: EdgeInsets.only(right: 12.5),
               child: Icon(
@@ -273,7 +273,7 @@ class _LongPressAlertDialogState extends State<LongPressAlertDialog> {
 
   Widget _buildDownloadImage() {
     return ListTile(
-      title: const Text("Download image"),
+      title: const Text("下载图片"),
       onTap: () async {
         String? url = widget.hitTestResult.extra;
         if (url != null) {
@@ -301,7 +301,7 @@ class _LongPressAlertDialogState extends State<LongPressAlertDialog> {
       title: const Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text("Share image"),
+            Text("分享图片"),
             Padding(
               padding: EdgeInsets.only(right: 12.5),
               child: Icon(
@@ -324,7 +324,7 @@ class _LongPressAlertDialogState extends State<LongPressAlertDialog> {
     final windowModel = Provider.of<WindowModel>(context, listen: false);
 
     return ListTile(
-      title: const Text("Image in a new tab"),
+      title: const Text("在新标签页中打开图片"),
       onTap: () {
         windowModel.addTab(WebViewTab(
           key: GlobalKey(),
@@ -340,7 +340,7 @@ class _LongPressAlertDialogState extends State<LongPressAlertDialog> {
     final windowModel = Provider.of<WindowModel>(context, listen: false);
 
     return ListTile(
-      title: const Text("Search this image on Google"),
+      title: const Text("用 Google 搜索此图"),
       onTap: () {
         if (widget.hitTestResult.extra != null) {
           var url =

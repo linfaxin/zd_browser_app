@@ -32,13 +32,13 @@ class _IOSSettingsState extends State<IOSSettings> {
 
     var widgets = <Widget>[
       const ListTile(
-        title: Text("Current WebView iOS Settings"),
+        title: Text("当前 WebView（iOS）设置"),
         enabled: false,
       ),
       SwitchListTile(
-        title: const Text("Disallow Over Scroll"),
+        title: const Text("禁止过度滚动回弹"),
         subtitle: const Text(
-            "Sets whether the WebView should bounce when the scrolling has reached an edge of the content"),
+            "滚动到达内容边缘时是否禁止 WebView 回弹效果。"),
         value: currentWebViewModel.settings?.disallowOverScroll ?? false,
         onChanged: (value) {
           currentWebViewModel.settings?.disallowOverScroll = value;
@@ -49,9 +49,9 @@ class _IOSSettingsState extends State<IOSSettings> {
         },
       ),
       SwitchListTile(
-        title: const Text("Enable Viewport Scale"),
+        title: const Text("启用视口缩放"),
         subtitle: const Text(
-            "Enable to allow a viewport meta tag to either disable or restrict the range of user scaling."),
+            "允许通过 viewport 元标签禁用或限制用户缩放范围。"),
         value: currentWebViewModel.settings?.enableViewportScale ?? false,
         onChanged: (value) {
           currentWebViewModel.settings?.enableViewportScale = value;
@@ -62,9 +62,9 @@ class _IOSSettingsState extends State<IOSSettings> {
         },
       ),
       SwitchListTile(
-        title: const Text("Suppresses Incremental Rendering"),
+        title: const Text("抑制增量渲染"),
         subtitle: const Text(
-            "Sets wheter the WebView should suppresses content rendering until it is fully loaded into memory."),
+            "是否在内容完全加载到内存前抑制渲染。"),
         value: currentWebViewModel.settings?.suppressesIncrementalRendering ??
             false,
         onChanged: (value) {
@@ -76,8 +76,8 @@ class _IOSSettingsState extends State<IOSSettings> {
         },
       ),
       SwitchListTile(
-        title: const Text("Allows Air Play For Media Playback"),
-        subtitle: const Text("Enable AirPlay."),
+        title: const Text("允许媒体使用 AirPlay"),
+        subtitle: const Text("启用 AirPlay。"),
         value:
             currentWebViewModel.settings?.allowsAirPlayForMediaPlayback ?? true,
         onChanged: (value) {
@@ -89,9 +89,9 @@ class _IOSSettingsState extends State<IOSSettings> {
         },
       ),
       SwitchListTile(
-        title: const Text("Allows Back Forward Navigation Gestures"),
+        title: const Text("允许前进后退滑动手势"),
         subtitle: const Text(
-            "Enable to allow the horizontal swipe gestures trigger back-forward list navigations."),
+            "允许水平滑动手势触发前进/后退导航。"),
         value:
             currentWebViewModel.settings?.allowsBackForwardNavigationGestures ??
                 true,
@@ -105,9 +105,9 @@ class _IOSSettingsState extends State<IOSSettings> {
         },
       ),
       SwitchListTile(
-        title: const Text("Ignores Viewport Scale Limits"),
+        title: const Text("忽略视口缩放限制"),
         subtitle: const Text(
-            "Sets whether the WebView should always allow scaling of the webpage, regardless of the author's intent."),
+            "是否始终允许缩放网页，而不受页面作者意图限制。"),
         value:
             currentWebViewModel.settings?.ignoresViewportScaleLimits ?? false,
         onChanged: (value) {
@@ -119,9 +119,9 @@ class _IOSSettingsState extends State<IOSSettings> {
         },
       ),
       SwitchListTile(
-        title: const Text("Allows Inline Media Playback"),
+        title: const Text("允许内联媒体播放"),
         subtitle: const Text(
-            "Enable to allow HTML5 media playback to appear inline within the screen layout, using browser-supplied controls rather than native controls."),
+            "允许 HTML5 媒体以内联方式在页面布局中播放，并使用浏览器控件而非原生全屏控件。"),
         value: currentWebViewModel.settings?.allowsInlineMediaPlayback ?? false,
         onChanged: (value) {
           currentWebViewModel.settings?.allowsInlineMediaPlayback = value;
@@ -132,9 +132,9 @@ class _IOSSettingsState extends State<IOSSettings> {
         },
       ),
       SwitchListTile(
-        title: const Text("Allows Picture In Picture Media Playback"),
+        title: const Text("允许画中画播放"),
         subtitle:
-            const Text("Enable to allow HTML5 videos play picture-in-picture."),
+            const Text("允许 HTML5 视频使用画中画播放。"),
         value:
             currentWebViewModel.settings?.allowsPictureInPictureMediaPlayback ??
                 true,
@@ -148,11 +148,11 @@ class _IOSSettingsState extends State<IOSSettings> {
         },
       ),
       ListTile(
-        title: const Text("Selection Granularity"),
+        title: const Text("文本选择粒度"),
         subtitle: const Text(
-            "Sets the level of granularity with which the user can interactively select content in the web view."),
+            "设置用户在网页中交互选择内容时的粒度级别。"),
         trailing: DropdownButton<SelectionGranularity>(
-          hint: const Text("Granularity"),
+          hint: const Text("粒度"),
           onChanged: (value) {
             currentWebViewModel.settings?.selectionGranularity = value!;
             webViewController?.setSettings(
@@ -174,9 +174,9 @@ class _IOSSettingsState extends State<IOSSettings> {
         ),
       ),
       ListTile(
-        title: const Text("Data Detector Types"),
+        title: const Text("数据检测器类型"),
         subtitle: const Text(
-            "Specifying a dataDetectoryTypes value adds interactivity to web content that matches the value."),
+            "指定 dataDetectorTypes 后，可为匹配到的网页内容增加交互能力。"),
         trailing: Container(
           constraints:
               BoxConstraints(maxWidth: MediaQuery.of(context).size.width / 2),
@@ -191,7 +191,7 @@ class _IOSSettingsState extends State<IOSSettings> {
             context: context,
             builder: (BuildContext context) {
               return MultiSelectDialog(
-                title: const Text("Data Detector Types"),
+                title: const Text("数据检测器类型"),
                 items: DataDetectorTypes.values.map((dataDetectorType) {
                   return MultiSelectDialogItem<DataDetectorTypes>(
                       value: dataDetectorType,
@@ -214,9 +214,9 @@ class _IOSSettingsState extends State<IOSSettings> {
         },
       ),
       SwitchListTile(
-        title: const Text("Shared Cookies Enabled"),
+        title: const Text("启用共享 Cookie"),
         subtitle: const Text(
-            "Sets if shared cookies from \"HTTPCookieStorage.shared\" should used for every load request in the WebView."),
+            "是否对每次加载请求使用 HTTPCookieStorage.shared 中的共享 Cookie。"),
         value: currentWebViewModel.settings?.sharedCookiesEnabled ?? false,
         onChanged: (value) {
           currentWebViewModel.settings?.sharedCookiesEnabled = value;
@@ -227,9 +227,9 @@ class _IOSSettingsState extends State<IOSSettings> {
         },
       ),
       SwitchListTile(
-        title: const Text("Automatically Adjusts Scroll Indicator Insets"),
+        title: const Text("自动调整滚动指示器内边距"),
         subtitle: const Text(
-            "Configures whether the scroll indicator insets are automatically adjusted by the system."),
+            "是否由系统自动调整滚动指示器的内边距。"),
         value: currentWebViewModel
                 .settings?.automaticallyAdjustsScrollIndicatorInsets ??
             false,
@@ -243,9 +243,9 @@ class _IOSSettingsState extends State<IOSSettings> {
         },
       ),
       SwitchListTile(
-        title: const Text("Accessibility Ignores Invert Colors"),
+        title: const Text("无障碍忽略颜色反转"),
         subtitle: const Text(
-            "Sets whether the WebView ignores an accessibility request to invert its colors."),
+            "是否忽略无障碍请求对颜色的反转。"),
         value: currentWebViewModel.settings?.accessibilityIgnoresInvertColors ??
             false,
         onChanged: (value) {
@@ -258,11 +258,11 @@ class _IOSSettingsState extends State<IOSSettings> {
         },
       ),
       ListTile(
-        title: const Text("Deceleration Rate"),
+        title: const Text("减速率"),
         subtitle: const Text(
-            "Determines the rate of deceleration after the user lifts their finger."),
+            "用户抬起手指后滚动的减速速率。"),
         trailing: DropdownButton<ScrollViewDecelerationRate>(
-          hint: const Text("Deceleration"),
+          hint: const Text("减速"),
           onChanged: (value) {
             currentWebViewModel.settings?.decelerationRate = value!;
             webViewController?.setSettings(
@@ -284,9 +284,9 @@ class _IOSSettingsState extends State<IOSSettings> {
         ),
       ),
       SwitchListTile(
-        title: const Text("Always Bounce Vertical"),
+        title: const Text("纵向始终回弹"),
         subtitle: const Text(
-            "Determines whether bouncing always occurs when vertical scrolling reaches the end of the content."),
+            "纵向滚动到达内容末端时是否始终出现回弹。"),
         value: currentWebViewModel.settings?.alwaysBounceVertical ?? false,
         onChanged: (value) {
           currentWebViewModel.settings?.alwaysBounceVertical = value;
@@ -297,9 +297,9 @@ class _IOSSettingsState extends State<IOSSettings> {
         },
       ),
       SwitchListTile(
-        title: const Text("Always Bounce Horizontal"),
+        title: const Text("横向始终回弹"),
         subtitle: const Text(
-            "Determines whether bouncing always occurs when horizontal scrolling reaches the end of the content view."),
+            "横向滚动到达内容末端时是否始终出现回弹。"),
         value: currentWebViewModel.settings?.alwaysBounceHorizontal ?? false,
         onChanged: (value) {
           currentWebViewModel.settings?.alwaysBounceHorizontal = value;
@@ -310,9 +310,9 @@ class _IOSSettingsState extends State<IOSSettings> {
         },
       ),
       SwitchListTile(
-        title: const Text("Scrolls To Top"),
+        title: const Text("滚动到顶部手势"),
         subtitle:
-            const Text("Sets whether the scroll-to-top gesture is enabled."),
+            const Text("是否启用点击状态栏滚动到顶部的手势。"),
         value: currentWebViewModel.settings?.scrollsToTop ?? true,
         onChanged: (value) {
           currentWebViewModel.settings?.scrollsToTop = value;
@@ -323,9 +323,9 @@ class _IOSSettingsState extends State<IOSSettings> {
         },
       ),
       SwitchListTile(
-        title: const Text("Is Paging Enabled"),
+        title: const Text("启用分页"),
         subtitle: const Text(
-            "Determines whether paging is enabled for the scroll view."),
+            "是否为滚动视图启用分页。"),
         value: currentWebViewModel.settings?.isPagingEnabled ?? false,
         onChanged: (value) {
           currentWebViewModel.settings?.isPagingEnabled = value;
@@ -336,9 +336,9 @@ class _IOSSettingsState extends State<IOSSettings> {
         },
       ),
       ListTile(
-        title: const Text("Maximum Zoom Scale"),
+        title: const Text("最大缩放比例"),
         subtitle: const Text(
-            "A floating-point value that specifies the maximum scale factor that can be applied to the scroll view's content."),
+            "可应用于滚动视图内容的最大缩放系数（浮点数）。"),
         trailing: SizedBox(
           width: 50.0,
           child: TextFormField(
@@ -358,9 +358,9 @@ class _IOSSettingsState extends State<IOSSettings> {
         ),
       ),
       ListTile(
-        title: const Text("Minimum Zoom Scale"),
+        title: const Text("最小缩放比例"),
         subtitle: const Text(
-            "A floating-point value that specifies the minimum scale factor that can be applied to the scroll view's content."),
+            "可应用于滚动视图内容的最小缩放系数（浮点数）。"),
         trailing: SizedBox(
           width: 50.0,
           child: TextFormField(
@@ -380,9 +380,9 @@ class _IOSSettingsState extends State<IOSSettings> {
         ),
       ),
       ListTile(
-        title: const Text("Content Inset Adjustment Behavior"),
+        title: const Text("内容内边距调整行为"),
         subtitle: const Text(
-            "Configures how safe area insets are added to the adjusted content inset."),
+            "配置安全区内边距如何加入调整后的内容内边距。"),
         trailing: DropdownButton<ScrollViewContentInsetAdjustmentBehavior>(
           onChanged: (value) {
             currentWebViewModel.settings?.contentInsetAdjustmentBehavior =
@@ -407,9 +407,9 @@ class _IOSSettingsState extends State<IOSSettings> {
         ),
       ),
       SwitchListTile(
-        title: const Text("Is Directional Lock Enabled"),
+        title: const Text("方向锁定"),
         subtitle: const Text(
-            "A Boolean value that determines whether scrolling is disabled in a particular direction."),
+            "是否锁定某一方向的滚动。"),
         value: currentWebViewModel.settings?.isDirectionalLockEnabled ?? false,
         onChanged: (value) {
           currentWebViewModel.settings?.isDirectionalLockEnabled = value;
@@ -420,9 +420,9 @@ class _IOSSettingsState extends State<IOSSettings> {
         },
       ),
       ListTile(
-        title: const Text("Media Type"),
+        title: const Text("媒体类型"),
         subtitle:
-            const Text("The media type for the contents of the web view."),
+            const Text("网页内容的媒体类型。"),
         trailing: SizedBox(
           width: 100.0,
           child: TextFormField(
@@ -440,9 +440,9 @@ class _IOSSettingsState extends State<IOSSettings> {
         ),
       ),
       ListTile(
-        title: const Text("Page Zoom"),
+        title: const Text("页面缩放"),
         subtitle: const Text(
-            "The scale factor by which the web view scales content relative to its bounds."),
+            "相对于 WebView 边界缩放内容的系数。"),
         trailing: SizedBox(
           width: 50.0,
           child: TextFormField(
@@ -460,9 +460,9 @@ class _IOSSettingsState extends State<IOSSettings> {
         ),
       ),
       SwitchListTile(
-        title: const Text("Apple Pay API Enabled"),
+        title: const Text("启用 Apple Pay API"),
         subtitle: const Text(
-            "Indicates if Apple Pay API should be enabled on the next page load (JavaScript won't work)."),
+            "是否在下次页面加载时启用 Apple Pay API（启用时 JavaScript 将不可用）。"),
         value: currentWebViewModel.settings?.applePayAPIEnabled ?? false,
         onChanged: (value) {
           currentWebViewModel.settings?.applePayAPIEnabled = value;
@@ -473,15 +473,15 @@ class _IOSSettingsState extends State<IOSSettings> {
         },
       ),
       ListTile(
-        title: const Text("Under Page Background Color"),
-        subtitle: const Text("Sets the color the web view displays behind the active page, visible when the user scrolls beyond the bounds of the page."),
+        title: const Text("页面背后背景色"),
+        subtitle: const Text("滚动超出页面边界时，WebView 在页面背后显示的颜色。"),
         trailing: SizedBox(
             width: 140.0,
             child: ElevatedButton(
               child: Text(
                 currentWebViewModel.settings?.underPageBackgroundColor
                     ?.toString() ??
-                    'Pick a color!',
+                    '选择颜色',
                 style: const TextStyle(fontSize: 12.5),
               ),
               onPressed: () {
@@ -518,9 +518,9 @@ class _IOSSettingsState extends State<IOSSettings> {
             )),
       ),
       SwitchListTile(
-        title: const Text("Text Interaction Enabled"),
+        title: const Text("启用文本交互"),
         subtitle: const Text(
-            "Indicates whether text interaction is enabled or not."),
+            "是否启用文本交互。"),
         value: currentWebViewModel.settings?.isTextInteractionEnabled ?? false,
         onChanged: (value) {
           currentWebViewModel.settings?.isTextInteractionEnabled = value;
@@ -531,9 +531,9 @@ class _IOSSettingsState extends State<IOSSettings> {
         },
       ),
       SwitchListTile(
-        title: const Text("Site Specific Quirks Mode Enabled"),
+        title: const Text("站点特定兼容模式"),
         subtitle: const Text(
-            "Indicates whether WebKit will apply built-in workarounds (quirks) to improve compatibility with certain known websites. You can disable site-specific quirks to help test your website without these workarounds."),
+            "WebKit 是否对已知网站应用内置兼容处理。关闭后可测试无兼容补丁时的页面表现。"),
         value: currentWebViewModel.settings?.isSiteSpecificQuirksModeEnabled ?? false,
         onChanged: (value) {
           currentWebViewModel.settings?.isSiteSpecificQuirksModeEnabled = value;
@@ -544,9 +544,9 @@ class _IOSSettingsState extends State<IOSSettings> {
         },
       ),
       SwitchListTile(
-        title: const Text("Upgrade Known Hosts To HTTPS"),
+        title: const Text("已知主机升级为 HTTPS"),
         subtitle: const Text(
-            "Indicates whether HTTP requests to servers known to support HTTPS should be automatically upgraded to HTTPS requests."),
+            "是否将已知支持 HTTPS 的服务器的 HTTP 请求自动升级为 HTTPS。"),
         value: currentWebViewModel.settings?.upgradeKnownHostsToHTTPS ?? false,
         onChanged: (value) {
           currentWebViewModel.settings?.upgradeKnownHostsToHTTPS = value;
@@ -557,9 +557,9 @@ class _IOSSettingsState extends State<IOSSettings> {
         },
       ),
       SwitchListTile(
-        title: const Text("Element Fullscreen Enabled"),
+        title: const Text("元素全屏 API"),
         subtitle: const Text(
-            "Indicates whether fullscreen API is enabled or not."),
+            "是否启用全屏 API。"),
         value: currentWebViewModel.settings?.isElementFullscreenEnabled ?? false,
         onChanged: (value) {
           currentWebViewModel.settings?.isElementFullscreenEnabled = value;
@@ -570,9 +570,9 @@ class _IOSSettingsState extends State<IOSSettings> {
         },
       ),
       SwitchListTile(
-        title: const Text("Find Interaction Enabled"),
+        title: const Text("启用查找交互"),
         subtitle: const Text(
-            "Indicates whether the web view's built-in find interaction native UI is enabled or not."),
+            "是否启用 WebView 内置的原生查找界面。"),
         value: currentWebViewModel.settings?.isFindInteractionEnabled ?? false,
         onChanged: (value) {
           currentWebViewModel.settings?.isFindInteractionEnabled = value;
