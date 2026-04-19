@@ -528,18 +528,18 @@ class _WebViewTabState extends State<WebViewTab> with WidgetsBindingObserver {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text("Login"),
+          title: const Text("登录"),
           content: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               Text(challenge.protectionSpace.host),
               TextField(
-                decoration: const InputDecoration(labelText: "Username"),
+                decoration: const InputDecoration(labelText: "用户名"),
                 controller: _httpAuthUsernameController,
               ),
               TextField(
-                decoration: const InputDecoration(labelText: "Password"),
+                decoration: const InputDecoration(labelText: "密码"),
                 controller: _httpAuthPasswordController,
                 obscureText: true,
               ),
@@ -547,14 +547,14 @@ class _WebViewTabState extends State<WebViewTab> with WidgetsBindingObserver {
           ),
           actions: <Widget>[
             ElevatedButton(
-              child: const Text("Cancel"),
+              child: const Text("取消"),
               onPressed: () {
                 action = HttpAuthResponseAction.CANCEL;
                 Navigator.of(context).pop();
               },
             ),
             ElevatedButton(
-              child: const Text("Ok"),
+              child: const Text("确定"),
               onPressed: () {
                 action = HttpAuthResponseAction.PROCEED;
                 Navigator.of(context).pop();

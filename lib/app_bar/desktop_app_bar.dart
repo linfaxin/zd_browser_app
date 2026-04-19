@@ -226,13 +226,13 @@ class _DesktopAppBarState extends State<DesktopAppBar> {
                         contextMenu: GenericContextMenu(
                           buttonConfigs: [
                             ContextMenuButtonConfig(
-                              "New Tab",
+                              "新建标签页",
                               onPressed: () {
                                 _addNewTab();
                               },
                             ),
                             ContextMenuButtonConfig(
-                              "Close All",
+                              "全部关闭",
                               onPressed: () {
                                 windowModel.closeAllTabs();
                               },
@@ -299,7 +299,7 @@ class _WebViewTabSelectorState extends State<WebViewTabSelector> {
     final url = tab.webViewModel.url;
     var tabName = tab.webViewModel.title ?? url?.toString() ?? '';
     if (tabName.isEmpty) {
-      tabName = 'New Tab';
+      tabName = '新建标签页';
     }
     final tooltipText =
         '$tabName\n${(url?.host ?? '').isEmpty ? url?.toString() : url?.host}'
@@ -330,13 +330,13 @@ class _WebViewTabSelectorState extends State<WebViewTabSelector> {
             contextMenu: GenericContextMenu(
               buttonConfigs: [
                 ContextMenuButtonConfig(
-                  "Reload",
+                  "重新加载",
                   onPressed: () {
                     tab.webViewModel.webViewController?.reload();
                   },
                 ),
                 ContextMenuButtonConfig(
-                  "Duplicate",
+                  "复制标签页",
                   onPressed: () {
                     if (tab.webViewModel.url != null) {
                       windowModel.addTab(WebViewTab(
@@ -347,7 +347,7 @@ class _WebViewTabSelectorState extends State<WebViewTabSelector> {
                   },
                 ),
                 ContextMenuButtonConfig(
-                  "Close",
+                  "关闭",
                   onPressed: () {
                     windowModel.closeTab(widget.index);
                   },
@@ -486,7 +486,7 @@ class _OpenTabsViewerState extends State<OpenTabsViewer> {
                 style: Theme.of(context).textTheme.labelLarge,
                 decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.search),
-                  hintText: 'Search open tabs',
+                  hintText: '搜索已打开标签页',
                   contentPadding: EdgeInsets.only(top: 15),
                   isDense: true,
                 ),
@@ -520,7 +520,7 @@ class _OpenTabsViewerState extends State<OpenTabsViewer> {
               final url = w.webViewModel.url;
               final title = (w.webViewModel.title ?? '').isNotEmpty
                   ? w.webViewModel.title!
-                  : 'New Tab';
+                  : '新建标签页';
               var subtitle =
                   (url?.host ?? '').isEmpty ? url?.toString() : url?.host;
               final diffTime =

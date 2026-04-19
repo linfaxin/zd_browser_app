@@ -51,7 +51,7 @@ class _EmptyTabState extends State<EmptyTab> {
                   },
                   textInputAction: TextInputAction.go,
                   decoration: const InputDecoration(
-                    hintText: "Search for or type a web address",
+                    hintText: "搜索或输入网址",
                     hintStyle: TextStyle(color: Colors.black54, fontSize: 25.0),
                   ),
                   style: const TextStyle(
