@@ -56,7 +56,7 @@ class _DesktopAppBarState extends State<DesktopAppBar> {
           }).toList();
 
     final windowActions = [];
-    if (!Util.isWindows()) {
+    if (Util.supportsWindowManagerPlus() && !Util.isWindows()) {
       windowActions.addAll([
         const SizedBox(
           width: 8,
@@ -90,8 +90,8 @@ class _DesktopAppBarState extends State<DesktopAppBar> {
         ),
         IconButton(
             onPressed: () async {
-              if (!(await  WindowManagerPlus.current.isFullScreen())) {
-                 WindowManagerPlus.current.minimize();
+              if (!(await WindowManagerPlus.current.isFullScreen())) {
+                WindowManagerPlus.current.minimize();
               }
             },
             constraints: const BoxConstraints(
@@ -119,8 +119,8 @@ class _DesktopAppBarState extends State<DesktopAppBar> {
         ),
         IconButton(
             onPressed: () async {
-               WindowManagerPlus.current
-                  .setFullScreen(!(await  WindowManagerPlus.current.isFullScreen()));
+              WindowManagerPlus.current.setFullScreen(
+                  !(await WindowManagerPlus.current.isFullScreen()));
             },
             constraints: const BoxConstraints(
               maxWidth: 13,
@@ -199,20 +199,22 @@ class _DesktopAppBarState extends State<DesktopAppBar> {
           child: MouseRegion(
               hitTestBehavior: HitTestBehavior.opaque,
               onEnter: (details) {
-                if (!Util.isWindows()) {
-                   WindowManagerPlus.current.setMovable(true);
+                if (Util.supportsWindowManagerPlus() && !Util.isWindows()) {
+                  WindowManagerPlus.current.setMovable(true);
                 }
                 setState(() {});
               },
               onExit: (details) {
-                if (!Util.isWindows()) {
-                   WindowManagerPlus.current.setMovable(false);
+                if (Util.supportsWindowManagerPlus() && !Util.isWindows()) {
+                  WindowManagerPlus.current.setMovable(false);
                 }
               },
               child: GestureDetector(
                 behavior: HitTestBehavior.opaque,
                 onDoubleTap: () async {
-                  await  WindowManagerPlus.current.maximize();
+                  if (Util.supportsWindowManagerPlus()) {
+                    await WindowManagerPlus.current.maximize();
+                  }
                 },
                 child: !widget.showTabs
                     ? const SizedBox(

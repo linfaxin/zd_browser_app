@@ -65,7 +65,10 @@ class _BrowserState extends State<Browser> with SingleTickerProviderStateMixin {
       _isRestored = true;
       restore();
     }
-    precacheImage(const AssetImage("assets/icon/icon.png"), context);
+    // Some emulator GPU/codec combinations fail decoding this large icon.
+    // Swallowing precache errors avoids breaking startup while preserving UI behavior.
+    precacheImage(const AssetImage("assets/icon/icon.png"), context)
+        .catchError((_) {});
   }
 
   @override
@@ -74,7 +77,8 @@ class _BrowserState extends State<Browser> with SingleTickerProviderStateMixin {
   }
 
   Widget _buildBrowser() {
-    final currentWebViewModel = Provider.of<WebViewModel>(context, listen: true);
+    final currentWebViewModel =
+        Provider.of<WebViewModel>(context, listen: true);
     final browserModel = Provider.of<BrowserModel>(context, listen: true);
     final windowModel = Provider.of<WindowModel>(context, listen: true);
 

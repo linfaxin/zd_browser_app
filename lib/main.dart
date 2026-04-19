@@ -47,7 +47,7 @@ String? windowModelId;
 void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  if (Util.isDesktop()) {
+  if (Util.supportsWindowManagerPlus()) {
     windowId = args.isNotEmpty ? int.tryParse(args[0]) ?? 0 : 0;
     windowModelId = args.length > 1 ? args[1] : null;
     await WindowManagerPlus.ensureInitialized(windowId);
@@ -71,7 +71,7 @@ void main(List<String> args) async {
                 'CREATE TABLE windows (id TEXT PRIMARY KEY, json TEXT)');
           }));
 
-  if (Util.isDesktop()) {
+  if (Util.supportsWindowManagerPlus()) {
     WindowOptions windowOptions = WindowOptions(
       center: true,
       backgroundColor: Colors.transparent,
@@ -130,8 +130,7 @@ void main(List<String> args) async {
             windowModel!.setCurrentWebViewModel(webViewModel);
             return windowModel;
           },
-          create: (BuildContext context) =>
-              WindowModel(id: null),
+          create: (BuildContext context) => WindowModel(id: null),
         ),
       ],
       child: const FlutterBrowserApp(),
@@ -148,17 +147,20 @@ class FlutterBrowserApp extends StatefulWidget {
 
 class _FlutterBrowserAppState extends State<FlutterBrowserApp>
     with WindowListener {
-
   // https://github.com/pichillilorenzo/window_manager_plus/issues/5
   late final AppLifecycleListener? _appLifecycleListener;
 
   @override
   void initState() {
     super.initState();
-    WindowManagerPlus.current.addListener(this);
+    if (Util.supportsWindowManagerPlus()) {
+      WindowManagerPlus.current.addListener(this);
+    }
 
     // https://github.com/pichillilorenzo/window_manager_plus/issues/5
-    if (WindowManagerPlus.current.id > 0 && Platform.isMacOS) {
+    if (Util.supportsWindowManagerPlus() &&
+        WindowManagerPlus.current.id > 0 &&
+        Platform.isMacOS) {
       _appLifecycleListener = AppLifecycleListener(
         onStateChange: _handleStateChange,
       );
@@ -167,16 +169,21 @@ class _FlutterBrowserAppState extends State<FlutterBrowserApp>
 
   void _handleStateChange(AppLifecycleState state) {
     // https://github.com/pichillilorenzo/window_manager_plus/issues/5
-    if (WindowManagerPlus.current.id > 0 && Platform.isMacOS && state == AppLifecycleState.hidden) {
+    if (Util.supportsWindowManagerPlus() &&
+        WindowManagerPlus.current.id > 0 &&
+        Platform.isMacOS &&
+        state == AppLifecycleState.hidden) {
       // ignore: invalid_use_of_protected_member
-      SchedulerBinding.instance.handleAppLifecycleStateChanged(
-          AppLifecycleState.inactive);
+      SchedulerBinding.instance
+          .handleAppLifecycleStateChanged(AppLifecycleState.inactive);
     }
   }
 
   @override
   void dispose() {
-    WindowManagerPlus.current.removeListener(this);
+    if (Util.supportsWindowManagerPlus()) {
+      WindowManagerPlus.current.removeListener(this);
+    }
     _appLifecycleListener?.dispose();
     super.dispose();
   }
@@ -205,14 +212,14 @@ class _FlutterBrowserAppState extends State<FlutterBrowserApp>
   @override
   void onWindowFocus([int? windowId]) {
     setState(() {});
-    if (!Util.isWindows()) {
+    if (Util.supportsWindowManagerPlus() && !Util.isWindows()) {
       WindowManagerPlus.current.setMovable(false);
     }
   }
 
   @override
   void onWindowBlur([int? windowId]) {
-    if (!Util.isWindows()) {
+    if (Util.supportsWindowManagerPlus() && !Util.isWindows()) {
       WindowManagerPlus.current.setMovable(true);
     }
   }
