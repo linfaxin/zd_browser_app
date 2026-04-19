@@ -75,10 +75,18 @@ const EcosiaSearchEngine = SearchEngineModel(
     assetIcon: "assets/images/ecosia_logo.png");
 
 // ignore: constant_identifier_names
+const BaiduSearchEngine = SearchEngineModel(
+    name: "百度",
+    url: "https://www.baidu.com/",
+    searchUrl: "https://www.baidu.com/s?wd=",
+    assetIcon: "assets/images/baidu_logo.png");
+
+// ignore: constant_identifier_names
 const SearchEngines = <SearchEngineModel>[
   GoogleSearchEngine,
   YahooSearchEngine,
   BingSearchEngine,
   DuckDuckGoSearchEngine,
-  EcosiaSearchEngine
+  EcosiaSearchEngine,
+  BaiduSearchEngine
 ];
