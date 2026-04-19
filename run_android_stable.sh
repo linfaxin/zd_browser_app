@@ -8,6 +8,71 @@ log() {
   printf '[run_android_stable] %s\n' "$*"
 }
 
+is_avd_process_running() {
+  local avd_name="$1"
+  ps -ef | awk -v avd="$avd_name" '
+    /qemu-system/ && $0 ~ ("-avd " avd "([[:space:]]|$)") { found=1 }
+    END { exit(found ? 0 : 1) }
+  '
+}
+
+cleanup_stale_avd_entries() {
+  local avd_name="$1"
+  local running_dir="$HOME/.android/avd/running"
+  if [[ ! -d "$running_dir" ]]; then
+    return
+  fi
+
+  local pid_file pid pid_running avd_value entry_dir
+  for pid_file in "$running_dir"/pid_*.ini; do
+    if [[ ! -f "$pid_file" ]]; then
+      continue
+    fi
+
+    avd_value="$(awk -F= '$1=="avd.name" {print $2}' "$pid_file" | tr -d '\r')"
+    if [[ "$avd_value" != "$avd_name" ]]; then
+      continue
+    fi
+
+    pid="$(basename "$pid_file")"
+    pid="${pid#pid_}"
+    pid="${pid%.ini}"
+    pid_running=false
+    if [[ "$pid" =~ ^[0-9]+$ ]] && kill -0 "$pid" 2>/dev/null; then
+      pid_running=true
+    fi
+
+    if [[ "$pid_running" == false ]]; then
+      log "Removing stale AVD running entry: $(basename "$pid_file")"
+      rm -f "$pid_file"
+      entry_dir="$running_dir/$pid"
+      if [[ -d "$entry_dir" ]]; then
+        rm -rf "$entry_dir"
+      fi
+    fi
+  done
+}
+
+cleanup_stale_avd_locks() {
+  local avd_name="$1"
+  local avd_dir="$HOME/.android/avd/${avd_name}.avd"
+  if [[ ! -d "$avd_dir" ]]; then
+    return
+  fi
+
+  local lock_file
+  for lock_file in "$avd_dir"/hardware-qemu.ini.lock "$avd_dir"/multiinstance.lock; do
+    if [[ -f "$lock_file" ]]; then
+      log "Removing stale AVD lock: $(basename "$lock_file")"
+      rm -f "$lock_file"
+    fi
+  done
+}
+
+first_connected_device() {
+  adb devices | awk 'NR>1 && $2=="device" {print $1; exit}'
+}
+
 require_cmd() {
   if ! command -v "$1" >/dev/null 2>&1; then
     log "Missing command: $1"
@@ -99,8 +164,10 @@ fi
 
 require_cmd flutter
 require_cmd adb
+adb start-server >/dev/null
 
-running_device="$(adb devices | awk 'NR>1 && $2=="device" {print $1; exit}')"
+running_device="$(first_connected_device)"
+started_emulator=false
 if [[ -z "$running_device" ]]; then
   require_cmd emulator
   avd_name="${ANDROID_AVD_NAME:-}"
@@ -112,30 +179,55 @@ if [[ -z "$running_device" ]]; then
     exit 1
   fi
 
-  log "Starting emulator: $avd_name"
-  emulator_args=(-avd "$avd_name" -no-boot-anim -no-snapshot -netdelay none -netspeed full)
-  if [[ -e /dev/kvm && -w /dev/kvm ]]; then
-    emulator_args+=(-accel auto)
+  cleanup_stale_avd_entries "$avd_name"
+  if is_avd_process_running "$avd_name"; then
+    log "Emulator process already running for AVD: $avd_name"
   else
-    emulator_args+=(-accel off -gpu swiftshader_indirect)
+    cleanup_stale_avd_locks "$avd_name"
+    log "Starting emulator: $avd_name"
+    emulator_args=(-avd "$avd_name" -no-boot-anim -no-snapshot -no-audio -netdelay none -netspeed full)
+    if [[ -e /dev/kvm && -w /dev/kvm ]]; then
+      emulator_args+=(-accel auto)
+    else
+      emulator_args+=(-accel off -gpu swiftshader_indirect)
+    fi
+    if [[ -z "${DISPLAY:-}" ]]; then
+      emulator_args+=(-no-window)
+    fi
+    nohup emulator "${emulator_args[@]}" >/tmp/android-emulator.log 2>&1 &
   fi
-  nohup emulator "${emulator_args[@]}" >/tmp/android-emulator.log 2>&1 &
+  started_emulator=true
 fi
 
 log "Waiting for device..."
-adb wait-for-device >/dev/null
-
-log "Waiting for boot completion..."
-for _ in $(seq 1 180); do
-  if [[ "$(adb shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')" == "1" ]]; then
+device_id="$running_device"
+for _ in $(seq 1 240); do
+  if [[ -z "$device_id" ]]; then
+    device_id="$(first_connected_device)"
+  fi
+  if [[ -n "$device_id" ]]; then
     break
   fi
   sleep 1
 done
 
-device_id="$(adb devices | awk 'NR>1 && $2=="device" {print $1; exit}')"
 if [[ -z "$device_id" ]]; then
-  log "Device not ready. Check /tmp/android-emulator.log"
+  log "Device not ready after timeout. Check /tmp/android-emulator.log"
+  exit 1
+fi
+
+if [[ "$started_emulator" == true ]]; then
+  log "Waiting for boot completion..."
+  for _ in $(seq 1 240); do
+    if [[ "$(adb -s "$device_id" shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')" == "1" ]]; then
+      break
+    fi
+    sleep 1
+  done
+fi
+
+if [[ "$(adb -s "$device_id" shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')" != "1" ]]; then
+  log "System boot did not complete in time. Check /tmp/android-emulator.log"
   exit 1
 fi
 
