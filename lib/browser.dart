@@ -101,8 +101,10 @@ class _BrowserState extends State<Browser> with SingleTickerProviderStateMixin {
   }
 
   Widget _buildWebViewTabs() {
-    return WillPopScope(
-        onWillPop: () async {
+    return PopScope(
+        canPop: false,
+        onPopInvokedWithResult: (didPop, result) async {
+          if (didPop) return;
           final windowModel = Provider.of<WindowModel>(context, listen: false);
           final webViewModel = windowModel.getCurrentTab()?.webViewModel;
           final webViewController = webViewModel?.webViewController;
@@ -110,7 +112,7 @@ class _BrowserState extends State<Browser> with SingleTickerProviderStateMixin {
           if (webViewController != null) {
             if (await webViewController.canGoBack()) {
               webViewController.goBack();
-              return false;
+              return;
             }
           }
 
@@ -121,10 +123,12 @@ class _BrowserState extends State<Browser> with SingleTickerProviderStateMixin {
             if (mounted) {
               FocusScope.of(context).unfocus();
             }
-            return false;
+            return;
           }
 
-          return windowModel.webViewTabs.isEmpty;
+          if (windowModel.webViewTabs.isEmpty && context.mounted) {
+            Navigator.of(context).pop();
+          }
         },
         child: Listener(
           onPointerUp: (_) {
@@ -197,10 +201,11 @@ class _BrowserState extends State<Browser> with SingleTickerProviderStateMixin {
     final browserModel = Provider.of<BrowserModel>(context, listen: true);
     final windowModel = Provider.of<WindowModel>(context, listen: true);
 
-    return WillPopScope(
-        onWillPop: () async {
+    return PopScope(
+        canPop: false,
+        onPopInvokedWithResult: (didPop, result) async {
+          if (didPop) return;
           browserModel.showTabScroller = false;
-          return false;
         },
         child: Scaffold(
             appBar: const TabViewerAppBar(),

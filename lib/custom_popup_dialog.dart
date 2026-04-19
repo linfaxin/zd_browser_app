@@ -11,7 +11,7 @@ class CustomPopupDialogPageRoute<T> extends MaterialTransparentPageRoute<T> {
     Duration? transitionDuration,
     Color? overlayColor,
     super.settings,
-  })  : overlayColor = overlayColor ?? Colors.black.withOpacity(0.5),
+  })  : overlayColor = overlayColor ?? Colors.black.withValues(alpha: 0.5),
         customTransitionDuration = transitionDuration;
 
   @override
@@ -120,10 +120,11 @@ class _CustomPopupDialogState extends State<CustomPopupDialog>
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
+    return PopScope(
+      canPop: true,
+      onPopInvokedWithResult: (didPop, result) async {
+        if (!didPop) return;
         await hideTransition();
-        return true;
       },
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

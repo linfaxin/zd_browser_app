@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_browser/models/browser_model.dart';
 import 'package:flutter_browser/models/webview_model.dart';
 import 'package:flutter_browser/util.dart';
 import 'package:flutter_browser/webview_tab.dart';
@@ -44,7 +43,7 @@ class _ProjectInfoPopupState extends State<ProjectInfoPopup> {
           size: 40.0,
         ),
         style: ButtonStyle(
-            backgroundColor: MaterialStateColor.resolveWith(
+            backgroundColor: WidgetStateColor.resolveWith(
                 (states) => Colors.grey.shade300)),
         label: RichText(
           text: const TextSpan(children: [
@@ -76,7 +75,7 @@ class _ProjectInfoPopupState extends State<ProjectInfoPopup> {
           size: 40.0,
         ),
         style: ButtonStyle(
-            backgroundColor: MaterialStateColor.resolveWith(
+            backgroundColor: WidgetStateColor.resolveWith(
                 (states) => Colors.grey.shade300)),
         label: RichText(
           text: const TextSpan(children: [
