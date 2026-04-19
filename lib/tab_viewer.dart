@@ -217,7 +217,7 @@ class _TabViewerState extends State<TabViewer>
                   child: Container(
                       decoration: BoxDecoration(boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(opacity),
+                          color: Colors.black.withValues(alpha: opacity),
                           spreadRadius: 5,
                           blurRadius: 5,
                         ),

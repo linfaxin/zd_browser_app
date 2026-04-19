@@ -20,8 +20,8 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 3.1.0+9
 
 environment:
-  sdk: ^3.5.0
-  flutter: ">=3.24.0"
+  sdk: ^3.7.0
+  flutter: ">=3.29.0"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -35,34 +35,42 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
+  # cupertino_icons 1.0.9 requires Dart ^3.9, using 1.0.8 (latest compatible with Dart 3.7)
   cupertino_icons: ^1.0.8
 
   # For material you.
-  dynamic_color: ^1.7.0
+  dynamic_color: ^1.8.1
 
   flutter_inappwebview: ^6.1.5
-  flutter_downloader: ^1.11.8
-  path_provider: ^2.1.4
-  permission_handler: ^11.3.1
-  provider: ^6.1.2
-  share_plus: ^10.0.2
+  # 1.12.0 fixes SQL injection vulnerability
+  flutter_downloader: ^1.12.0
+  path_provider: ^2.1.5
+  # 12.0.1 requires compileSdk 35 on Android
+  permission_handler: ^12.0.1
+  provider: ^6.1.5+1
+  # share_plus 13.x requires Dart >=3.11, using 12.x (latest compatible)
+  share_plus: ^12.0.2
   # charts_flutter: ^0.9.0
-  crypto: ^3.0.5
-  package_info_plus: ^8.0.2
+  crypto: ^3.0.7
+  # package_info_plus 10.x requires Dart >=3.11, using 9.x (latest compatible)
+  package_info_plus: ^9.0.1
   # flutter_icons: ^1.1.0
   flutter_font_icons: ^2.2.7
-  flutter_svg: ^2.0.10+1
-  mime: ^1.0.6
-  url_launcher: ^6.3.0
+  # flutter_svg 2.2.3+ requires Dart >=3.8, using 2.2.2 (latest compatible with Dart 3.7)
+  flutter_svg: ^2.2.2
+  mime: ^2.0.0
+  url_launcher: ^6.3.2
   cached_network_image: ^3.4.1
   flutter_colorpicker: ^1.1.0
   intl: any
-  uuid: ^4.5.0
+  uuid: ^4.5.3
   collection: any
   context_menus: ^2.0.0+1
   multi_window: ^0.2.0
-  sqflite: ^2.3.3+2
-  sqflite_common_ffi: ^2.3.3+1
+  # sqflite 2.4.2 requires Dart ^3.7.0 (compatible)
+  sqflite: ^2.4.2
+  # sqflite_common_ffi 2.4.x requires Dart ^3.10, using 2.3.6 (latest compatible with Dart 3.7)
+  sqflite_common_ffi: ^2.3.6
   sqlite3_flutter_libs: ^0.5.24
   window_manager_plus: ^1.0.5
   path: any
@@ -76,7 +84,8 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^4.0.0
+  # flutter_lints 6.x requires Dart ^3.8, using 5.x (latest compatible with Dart 3.7)
+  flutter_lints: ^5.0.0
 
 flutter_icons:
   android: "launcher_icon"

@@ -13,7 +13,6 @@ import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:sqflite/sqflite.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:window_manager_plus/window_manager_plus.dart';
 import 'package:path/path.dart' as p;
@@ -169,6 +168,7 @@ class _FlutterBrowserAppState extends State<FlutterBrowserApp>
   void _handleStateChange(AppLifecycleState state) {
     // https://github.com/pichillilorenzo/window_manager_plus/issues/5
     if (WindowManagerPlus.current.id > 0 && Platform.isMacOS && state == AppLifecycleState.hidden) {
+      // ignore: invalid_use_of_protected_member
       SchedulerBinding.instance.handleAppLifecycleStateChanged(
           AppLifecycleState.inactive);
     }
