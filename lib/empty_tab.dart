@@ -30,7 +30,13 @@ class _EmptyTabState extends State<EmptyTab> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Image(image: AssetImage(settings.searchEngine.assetIcon)),
+            Image.asset(
+              settings.searchEngine.assetIcon,
+              errorBuilder: (context, error, stackTrace) {
+                return const Icon(Icons.public,
+                    size: 72, color: Colors.black45);
+              },
+            ),
             const SizedBox(
               height: 10,
             ),
