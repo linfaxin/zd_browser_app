@@ -858,7 +858,7 @@ class _WebViewTabAppBarState extends State<WebViewTabAppBar>
           return items;
         },
       )
-    ].whereNotNull().toList();
+    ].nonNulls.toList();
   }
 
   void _popupMenuChoiceAction(String choice) async {
@@ -1223,7 +1223,7 @@ class _WebViewTabAppBarState extends State<WebViewTabAppBar>
     final webViewModel = windowModel.getCurrentTab()?.webViewModel;
     final url = webViewModel?.url;
     if (url != null) {
-      Share.share(url.toString(), subject: webViewModel?.title);
+      SharePlus.instance.share(ShareParams(text: url.toString(), subject: webViewModel?.title));
     }
   }
 
@@ -1323,7 +1323,7 @@ class _WebViewTabAppBarState extends State<WebViewTabAppBar>
               ElevatedButton(
                 child: const Text("Share"),
                 onPressed: () async {
-                  await Share.shareXFiles([XFile(file.path)]);
+                  await SharePlus.instance.share(ShareParams(files: [XFile(file.path)]));
                 },
               )
             ],

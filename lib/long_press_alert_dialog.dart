@@ -241,8 +241,8 @@ class _LongPressAlertDialogState extends State<LongPressAlertDialog> {
           ]),
       onTap: () {
         if (widget.hitTestResult.extra != null) {
-          Share.share(widget.requestFocusNodeHrefResult?.url.toString() ??
-              widget.hitTestResult.extra!);
+          SharePlus.instance.share(ShareParams(text: widget.requestFocusNodeHrefResult?.url.toString() ??
+              widget.hitTestResult.extra!));
         }
         Navigator.pop(context);
       },
@@ -313,7 +313,7 @@ class _LongPressAlertDialogState extends State<LongPressAlertDialog> {
           ]),
       onTap: () {
         if (widget.hitTestResult.extra != null) {
-          Share.share(widget.hitTestResult.extra!);
+          SharePlus.instance.share(ShareParams(text: widget.hitTestResult.extra!));
         }
         Navigator.pop(context);
       },
