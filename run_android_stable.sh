@@ -54,6 +54,21 @@ find_java17_home() {
   echo ""
 }
 
+find_flutter_bin() {
+  local candidates=(
+    "$HOME/flutter-sdk/bin"
+    "$HOME/.flutter/bin"
+    "$ROOT_DIR/.flutter/bin"
+  )
+  for candidate in "${candidates[@]}"; do
+    if [[ -x "$candidate/flutter" ]]; then
+      echo "$candidate"
+      return
+    fi
+  done
+  echo ""
+}
+
 has_impeller_flag=false
 for arg in "$@"; do
   if [[ "$arg" == "--no-enable-impeller" || "$arg" == "--enable-impeller" ]]; then
@@ -73,6 +88,13 @@ JAVA_17_HOME="$(find_java17_home)"
 if [[ -n "$JAVA_17_HOME" ]]; then
   export JAVA_HOME="$JAVA_17_HOME"
   export PATH="$JAVA_HOME/bin:$PATH"
+fi
+
+if ! command -v flutter >/dev/null 2>&1; then
+  FLUTTER_BIN_DIR="$(find_flutter_bin)"
+  if [[ -n "$FLUTTER_BIN_DIR" ]]; then
+    export PATH="$FLUTTER_BIN_DIR:$PATH"
+  fi
 fi
 
 require_cmd flutter
@@ -127,4 +149,5 @@ if [[ "$has_impeller_flag" == false ]]; then
 fi
 
 log "Launching app..."
+log "Command: flutter run ${flutter_args[*]} $*"
 exec flutter run "${flutter_args[@]}" "$@"
