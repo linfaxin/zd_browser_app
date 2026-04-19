@@ -26,7 +26,7 @@ class Util {
   }
 
   static bool isDesktop() {
-    return !isMobile();
+    return !kIsWeb && (isWindows() || isMacOS() || isLinux());
   }
 
   static bool isMacOS() {
@@ -35,5 +35,13 @@ class Util {
 
   static bool isWindows() {
     return !kIsWeb && defaultTargetPlatform == TargetPlatform.windows;
+  }
+
+  static bool isLinux() {
+    return !kIsWeb && defaultTargetPlatform == TargetPlatform.linux;
+  }
+
+  static bool supportsWindowManagerPlus() {
+    return isWindows() || isMacOS();
   }
 }
