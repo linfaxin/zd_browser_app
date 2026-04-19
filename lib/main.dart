@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:context_menus/context_menus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_browser/models/browser_model.dart';
 import 'package:flutter_browser/models/webview_model.dart';
@@ -191,8 +192,15 @@ class _FlutterBrowserAppState extends State<FlutterBrowserApp>
   @override
   Widget build(BuildContext context) {
     final materialApp = MaterialApp(
-      title: 'Flutter Browser',
+      title: 'Flutter 浏览器',
       debugShowCheckedModeBanner: false,
+      locale: const Locale('zh', 'CN'),
+      supportedLocales: const [Locale('zh', 'CN')],
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
       theme: ThemeData(
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),

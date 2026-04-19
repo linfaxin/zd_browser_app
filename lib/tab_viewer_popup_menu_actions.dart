@@ -1,12 +1,12 @@
 class TabViewerPopupMenuActions {
   // ignore: constant_identifier_names
-  static const String NEW_TAB = "New tab";
+  static const String NEW_TAB = "新建标签页";
   // ignore: constant_identifier_names
-  static const String NEW_INCOGNITO_TAB = "New incognito tab";
+  static const String NEW_INCOGNITO_TAB = "新建无痕标签页";
   // ignore: constant_identifier_names
-  static const String CLOSE_ALL_TABS = "Close all tabs";
+  static const String CLOSE_ALL_TABS = "关闭全部标签页";
   // ignore: constant_identifier_names
-  static const String SETTINGS = "Settings";
+  static const String SETTINGS = "设置";
 
   static const List<String> choices = <String>[
     NEW_TAB,

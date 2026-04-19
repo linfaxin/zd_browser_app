@@ -51,7 +51,7 @@ class _FindOnPageAppBarState extends State<FindOnPageAppBar> {
               border: outlineBorder,
               focusedBorder: outlineBorder,
               enabledBorder: outlineBorder,
-              hintText: "Find on page ...",
+              hintText: "在页面中查找…",
               hintStyle: const TextStyle(color: Colors.black54, fontSize: 16.0),
             ),
             style: const TextStyle(color: Colors.black, fontSize: 16.0),

@@ -23,7 +23,7 @@ class _ProjectInfoPopupState extends State<ProjectInfoPopup> {
       RichText(
         text: const TextSpan(children: [
           TextSpan(
-            text: "Do you like this project? Give a ",
+            text: "喜欢这个项目吗？请给个",
             style: TextStyle(color: Colors.black),
           ),
           WidgetSpan(
@@ -34,7 +34,7 @@ class _ProjectInfoPopupState extends State<ProjectInfoPopup> {
               color: Colors.yellow,
             ),
           ),
-          TextSpan(text: " to", style: TextStyle(color: Colors.black))
+          TextSpan(text: "吧！", style: TextStyle(color: Colors.black))
         ]),
       ),
       ElevatedButton.icon(
@@ -47,7 +47,7 @@ class _ProjectInfoPopupState extends State<ProjectInfoPopup> {
                 (states) => Colors.grey.shade300)),
         label: RichText(
           text: const TextSpan(children: [
-            TextSpan(text: "Github: ", style: TextStyle(color: Colors.black)),
+            TextSpan(text: "GitHub：", style: TextStyle(color: Colors.black)),
             TextSpan(
                 text: "pichillilorenzo/flutter_inappwebview",
                 style: TextStyle(color: Colors.blue))
@@ -66,7 +66,7 @@ class _ProjectInfoPopupState extends State<ProjectInfoPopup> {
       ),
       RichText(
         text: const TextSpan(children: [
-          TextSpan(text: "and to", style: TextStyle(color: Colors.black)),
+          TextSpan(text: "以及", style: TextStyle(color: Colors.black)),
         ]),
       ),
       ElevatedButton.icon(
@@ -79,7 +79,7 @@ class _ProjectInfoPopupState extends State<ProjectInfoPopup> {
                 (states) => Colors.grey.shade300)),
         label: RichText(
           text: const TextSpan(children: [
-            TextSpan(text: "Github: ", style: TextStyle(color: Colors.black)),
+            TextSpan(text: "GitHub：", style: TextStyle(color: Colors.black)),
             TextSpan(
                 text: "pichillilorenzo/flutter_browser_app",
                 style: TextStyle(color: Colors.blue))
@@ -106,7 +106,7 @@ class _ProjectInfoPopupState extends State<ProjectInfoPopup> {
           text: const TextSpan(children: [
             TextSpan(
               text:
-                  "Also, if you want, you can support these projects with a donation. Thanks!",
+                  "若你愿意，也可以通过捐赠支持这些项目。谢谢！",
               style: TextStyle(color: Colors.black),
             ),
           ]),
@@ -125,7 +125,7 @@ class _ProjectInfoPopupState extends State<ProjectInfoPopup> {
             size: 30.0,
           ),
           label: const Text(
-            "Go Back",
+            "返回",
             style: TextStyle(fontSize: 20.0),
           ),
           onPressed: () {

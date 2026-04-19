@@ -97,11 +97,11 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
       actions: <Widget>[
         ElevatedButton(
           onPressed: _onCancelTap,
-          child: const Text('CANCEL'),
+          child: const Text('取消'),
         ),
         ElevatedButton(
           onPressed: _onSubmitTap,
-          child: const Text('OK'),
+          child: const Text('确定'),
         )
       ],
       titlePadding: widget.titlePadding,
