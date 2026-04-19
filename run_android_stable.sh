@@ -189,7 +189,8 @@ if [[ -z "$running_device" ]]; then
     if [[ -e /dev/kvm && -w /dev/kvm ]]; then
       emulator_args+=(-accel auto)
     else
-      emulator_args+=(-accel off -gpu swiftshader_indirect)
+      # In no-KVM cloud VMs, headless mode is usually more stable.
+      emulator_args+=(-accel off -gpu swiftshader_indirect -no-window)
     fi
     if [[ -z "${DISPLAY:-}" ]]; then
       emulator_args+=(-no-window)
